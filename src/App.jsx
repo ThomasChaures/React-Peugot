@@ -1,11 +1,11 @@
 import React from "react";
-import Listado2 from "./components/Listado2/Listado2";
+import FetchList from "./components/Fetch/FetchList";
 function App() {
 
   // retorno jsx
   return (
     <>
-     <Listado2></Listado2>
+     <FetchList/>
     </>
   );
 }

@@ -9,41 +9,21 @@ const FetchList = () => {
     console.log(response);
     const datos = await response.json();
     console.log(datos);
-    setListado(datos.results);
+    setListado(datos);
   };
   // getDatos()
 
   useEffect(() => {
     //mounted
-    getDatos(`https://rickandmortyapi.com/api/character/?page=${page}`);
+    getDatos(`http://localhost:3333/api/autos`);
   }, [page]);
 
-  const paginaNext = () => {
-    setPage(page + 1);
-    // getDatos(`https://rickandmortyapi.com/api/character/?page=${page}`);
-  }
-  const paginaLast = () => {
-   if(page != 1){
-    setPage(page - 1);
-   }
-    // getDatos(`https://rickandmortyapi.com/api/character/?page=${page}`);
-  }
+ 
   return (
     <>
-    <button
-        onClick={paginaLast}
-      >
-        Anterior {page !== 1 ? page - 1 : ''}
-      </button>
-      <button>{page}</button>
-      <button
-        onClick={paginaNext}
-      >
-       Siguiente {page + 1}
-      </button>
       <ul>
         {listado.map((personaje, indice) => {
-          return <li key={indice}>{personaje.name}</li>;
+          return <li key={indice}>{personaje.modelo}</li>;
         })}
       </ul>
     </>
