@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,6 +16,7 @@ const Login = () => {
     });
     const data = await response.json();
     console.log(data);
+    localStorage.setItem('token', data.token)
   };
 
   const handleChangeEmail = (event) => {
@@ -42,6 +44,9 @@ const Login = () => {
         />
         <button type="submit">Login</button>
       </form>
+
+      <Link to="/register">Register</Link>
+
     </>
   );
 };
