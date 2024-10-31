@@ -5,11 +5,12 @@ import App from './App.jsx' // App
 import Login from './components/Login/Login.jsx'
 import Register from './components/Register/Register.jsx'
 import './index.css'
+import Home from './pages/Home.jsx'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App></App>
+    element: <Home></Home>
   },
   {
     path: '/login',

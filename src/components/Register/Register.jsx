@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVerify, setPasswordVerify] = useState("");
+  const [error, setError] = useState('')
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,12 +18,18 @@ const Register = () => {
       },
     });
     const data = await response.json();
-    console.log(data);
-    localStorage.setItem("token", data.token);
+    console.log(data.usuario);
+    console.log(data.usuario.token)
+
+
 
     if(response.status === 201){
-      Navigate('/login')
+      navigate('/')
+      localStorage.setItem("token", data.usuario.token);
+    }else {
+      setError('No se pudo registrar al usuario.')
     }
+
   };
 
   const handleChangeEmail = (event) => {
@@ -33,37 +41,69 @@ const Register = () => {
   };
 
   const handleChangePasswordVerify = (event) => {
-    setPassword(event.target.value);
+    setPasswordVerify(event.target.value);
   };
 
+  const checkPassword = () => {
+    return password !== passwordVerify? 'form-control is-invalid' : 'form-control'
+  }
+
+  const checkEmail = () => {
+    return email === '' ? 'form-control is-invalid' : 'form-control'
+  }
+
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          id="email"
+    <div className="d-flex justify-content-center align-items-center vh-100">
+    <form 
+      onSubmit={handleSubmit} 
+      className="p-4 shadow-lg rounded" 
+      style={{ width: '350px', backgroundColor: '#f9f9f9' }}
+    >
+      <h3 className="text-center mb-4 text-primary">Registrar Usuario</h3>
+      <div className="mb-3">
+        <label htmlFor="email" className="form-label">Correo Electrónico</label>
+        <input 
+          type="email" 
+          className={checkEmail()} 
+          id="email" 
+          placeholder="Ingresa tu correo"
           onChange={handleChangeEmail}
+          required
         />
-        <input
-          type="password"
-          name="password"
-          id="password"
+      </div>
+      <div className="mb-3">
+        <label htmlFor="password" className="form-label">Contraseña</label>
+        <input 
+          type="password" 
+          className={checkPassword()}
+          id="password" 
+          placeholder="Ingresa tu contraseña"
           onChange={handleChangePassword}
+          required
         />
-
-        <input
-          type="password"
-          name="passwordConfirm"
-          id="passwordConfirm"
+      </div>
+      <div className="mb-3">
+        <label htmlFor="password" className="form-label">Repetir contraseña</label>
+        <input 
+          type="password" 
+          className={checkPassword()}
+          id="passwordVerify" 
+          placeholder="Ingresa tu contraseña nuevamente"
           onChange={handleChangePasswordVerify}
+          required
         />
-        <button type="submit">Register</button>
-      </form>
+      </div>          
+      <button type="submit" className="btn btn-primary w-100">Registrar!</button>
+      <div className="text-center mt-3">
+        <Link to="/login" className="text-decoration-none text-secondary">Ya tenes usuario?</Link>
+      </div>
 
-      <Link to="/login">Login</Link>
-    </>
-  );
-};
+      {
+        error && <div className="text-center mt-3"><p className="text-danger">{error}</p></div>
+      }
+    </form>
+  </div>
+)
+}
 
-export default Register;
+export default Register

@@ -1,11 +1,16 @@
 import React, { Component, useState, useEffect } from "react";
-import Listado from "../Listado/Listado";
+
 
 const FetchList = () => {
   const [listado, setListado] = useState([]);
-  const [page, setPage] = useState(1);
   const getDatos = async (url) => {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        "auth-token": localStorage.getItem('token')
+      }
+    });
     console.log(response);
     const datos = await response.json();
     console.log(datos);
@@ -16,7 +21,7 @@ const FetchList = () => {
   useEffect(() => {
     //mounted
     getDatos(`http://localhost:3333/api/autos`);
-  }, [page]);
+  });
 
  
   return (
