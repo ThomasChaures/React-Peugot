@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import HeroSection from "../components/HomeComponents/HeroSection";
 
 const Home = () => {
   useEffect(() => {
@@ -15,7 +16,7 @@ const Home = () => {
   });
   return (
     <>
-      <h1>Hola</h1>
+      <HeroSection></HeroSection>
     </>
   );
 };

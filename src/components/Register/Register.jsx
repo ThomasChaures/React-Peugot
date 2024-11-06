@@ -18,8 +18,6 @@ const Register = () => {
       },
     });
     const data = await response.json();
-    console.log(data.usuario);
-    console.log(data.usuario.token)
 
 
 
