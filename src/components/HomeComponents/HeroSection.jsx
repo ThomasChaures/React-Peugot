@@ -7,7 +7,7 @@ const HeroSection = () => {
         <div className="h-full bg-slate-950/30 ">
           <div className="flex w-full h-full pb-40 justify-center flex-col gap-6 items-center">
             <p className="text-white/40">Find cars sale near you</p>
-            <h1 className="text-white font-sans font-semibold text-8xl">
+            <h1 className="text-white font-sans font-semibold text-5xl">
               Find Your Perfect Car
             </h1>
 
@@ -20,10 +20,10 @@ const HeroSection = () => {
                     <input type="text" readOnly className="text-center outline-none hover:bg-black/20 transition-all bg-white/0  text-white text-md h-10 cursor-pointer border-b-2 border-white w-[80px]" value={'New'} />
                     <input type="text" readOnly className="text-center outline-none hover:bg-black/20 transition-all bg-white/0 text-white text-md h-10 cursor-pointer  w-[80px]" value={'Used'} />
                 </div>
-               <div className="flex justify-between bg-white w-[800px] py-2 pr-2 pl-4 rounded-full">
+               <div className="flex justify-between bg-white w-[800px] py-1 pr-1 pl-1 rounded-full">
                <select
                   name="model"
-                  class="w-[20%] rounded-full border border-white hover:border-black"
+                  class="w-[20%] bg-transparent px-2  rounded-full border border-white hover:border-black"
                   id="model"
                 >
                   <option disabled selected value="">
@@ -33,7 +33,7 @@ const HeroSection = () => {
 
                 <select
                   name="type"
-                  class="w-[20%] rounded-full border border-white hover:border-black"
+                  class="w-[20%] bg-transparent px-2 rounded-full border border-white hover:border-black"
                   id="type"
                 >
                   <option disabled selected value="">
@@ -43,7 +43,7 @@ const HeroSection = () => {
 
                 <select
                   name="prices"
-                  class="w-[20%] rounded-full border border-white hover:border-black"
+                  class="w-[20%] bg-transparent px-2  rounded-full border border-white hover:border-black"
                   id="prices"
                 >
                   <option disabled selected value="">
