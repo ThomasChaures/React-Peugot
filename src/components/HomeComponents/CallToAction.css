@@ -1,0 +1,13 @@
+.buy{
+    background-image: url('../../assets/img/CallToAction/car-service.png');
+    background-repeat: no-repeat; 
+    background-size: 400px;
+    background-position: 120% -100%;
+}
+
+.sell{
+    background-image: url('../../assets/img/CallToAction/carrito-de-compras.png');
+    background-repeat: no-repeat; 
+    background-size: 400px;
+    background-position: 120% -100%;
+}
