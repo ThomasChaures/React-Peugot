@@ -1,14 +1,16 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
-
+import {SessionProvider} from "../../contexts/SessionContext";
 const Layout = () => {
   return (
     <>
+    <SessionProvider>
       <NavBar />
-      <main>
+      <main className="poppins-regular">
         <Outlet />
       </main>
+      </SessionProvider>
     </>
   );
 };

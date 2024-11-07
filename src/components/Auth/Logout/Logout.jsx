@@ -1,8 +1,11 @@
-import React from 'react'
-
+import React, { useContext } from 'react'
+import { Navigate } from 'react-router-dom'
+import {SessionContext} from '../../../contexts/SessionContext'
 const Logout = () => {
+  const {onLogout} = useContext(SessionContext)
+  onLogout()
   return (
-    <div>Logout</div>
+    <Navigate to={'/login'}/>
   )
 }
 

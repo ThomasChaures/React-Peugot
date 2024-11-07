@@ -33,7 +33,7 @@ const BrandsSection = () => {
             ].map((car, index) => (
               <li
                 key={index}
-                className="bg-white shadow-md cursor-pointer rounded-lg py-2 flex flex-col justify-evenly items-center w-[200px] h-[200px] hover:shadow-lg transition-shadow"
+                className="bg-white border border-black/20 cursor-pointer rounded-lg py-2 flex flex-col justify-evenly items-center w-[200px] h-[200px] hover:shadow-lg transition-shadow"
               >
                 <div className="flex justify-center items-center h-40 w-full">
                   <img

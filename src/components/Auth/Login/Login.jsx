@@ -1,7 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { SessionContext } from "../../../contexts/SessionContext.jsx";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { onLogin } = useContext(SessionContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -9,14 +12,15 @@ const Login = () => {
     e.preventDefault();
     const response = await fetch("http://localhost:3333/api/usuarios/login", {
       method: "POST",
-      body: JSON.stringify({ "email": email , "password":password }),
+      body: JSON.stringify({ email: email, password: password }),
       headers: {
-         'Content-Type': 'application/json'
-      }
+        "Content-Type": "application/json",
+      },
     });
     const data = await response.json();
     console.log(data);
-    localStorage.setItem('token', data.token)
+    onLogin(data.token);
+    navigate("/");
   };
 
   const handleChangeEmail = (event) => {
@@ -46,7 +50,6 @@ const Login = () => {
       </form>
 
       <Link to="/register">Register</Link>
-
     </>
   );
 };

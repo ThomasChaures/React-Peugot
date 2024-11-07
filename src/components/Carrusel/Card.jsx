@@ -6,6 +6,10 @@ const Card = ({ auto }) => {
     return <div>Auto no disponible</div>; // Maneja el caso de datos no definidos
   }
 
+  const formattedNumber = (number) => {
+    return number.toLocaleString('es-ES'); 
+  } 
+
   const capitalizeFirstLetter = (string) => {
     if (!string) return "";
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -62,7 +66,7 @@ const Card = ({ auto }) => {
         </div>
 
         <div className="py-3 flex items-center justify-between">
-          <p className="text-2xl text-white font-semibold">${auto.price_usd}</p>
+          <p className="text-2xl text-white poppins-medium">${formattedNumber(auto.price_usd)}</p>
           <Link className="text-white">
             View details <i className="text-sm fa-solid fa-location-arrow"></i>{" "}
           </Link>

@@ -9,7 +9,7 @@ const HeroSection = () => {
       <div className="h-full bg-blue-950/40">
         <div className="flex w-full h-full pb-10 justify-center flex-col gap-6 items-center">
           <p className="text-white/40">Find cars for sale near you</p>
-          <h1 className="text-white font-sans font-semibold text-5xl">
+          <h1 className="text-white poppins-semibold text-5xl">
             Find Your Perfect Car
           </h1>
 
@@ -78,7 +78,7 @@ const HeroSection = () => {
                 <input
                   name="prices"
                   aria-label="Select Prices"
-                  className="w-[20%] placeholder-black cursor-pointer outline-none bg-transparent px-2 rounded-full border border-white hover:border-black"
+                  className="w-[15%] placeholder-black cursor-pointer outline-none bg-transparent px-2 rounded-full border border-white hover:border-black"
                   id="prices"
                   placeholder="Price"
                   defaultValue=""
@@ -96,14 +96,17 @@ const HeroSection = () => {
             </form>
           </div>
 
-          <div className="max-w-[600px]">
+          <div className="max-w-[750px]">
                <p className="text-center mb-4 text-white/70">Browse Featured Model </p>
               <ul className="flex items-center justify-center gap-4 flex-wrap">
-                 <li className="bg-black/30 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">Hatchback</li>
-                 <li className="bg-black/30 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">SUV</li>
-                 <li className="bg-black/30 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">Sedan</li>
-                 <li className="bg-black/30 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">MPV</li>
-                 <li className="bg-black/30 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">Van</li>
+                 <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">Hatchback</li>
+                 <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">SUV</li>
+                 <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">Sedan</li>
+                 <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">MPV</li>
+                 <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">Convertible</li>
+                 <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">Van</li>
+                 <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">Coupe</li>
+                 <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">Pickup</li>
               </ul>
           </div>
         </div>
