@@ -26,8 +26,8 @@ const BrandsSection = () => {
             {[
               { src: audi, name: "Audi" },
               { src: bmw, name: "BMW" },
-              { src: ford, name: "Ford" },
               { src: chevrolet, name: "Chevrolet" },
+              { src: ford, name: "Ford" },
               { src: peugot, name: "Peugeot" },
               { src: volkswagen, name: "Volkswagen" },
             ].map((car, index) => (

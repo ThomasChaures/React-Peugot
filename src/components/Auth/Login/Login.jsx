@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { SessionContext } from "../../../contexts/SessionContext.jsx";
+import { useLogin } from "../../../contexts/SessionContext.jsx";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { onLogin } = useContext(SessionContext);
+  const onLogin  = useLogin();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

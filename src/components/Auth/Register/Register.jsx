@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate} from "react-router-dom";
-import {SessionContext} from "../../../contexts/SessionContext.jsx"
+import {useLogin} from "../../../contexts/SessionContext.jsx"
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -8,7 +8,7 @@ const Register = () => {
   const [passwordVerify, setPasswordVerify] = useState("");
   const [error, setError] = useState('')
   const navigate = useNavigate()
-  const { onLogin } = useContext(SessionContext);
+  const onLogin  = useLogin();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch("http://localhost:3333/api/usuarios", {

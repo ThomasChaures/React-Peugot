@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { SessionContext } from '../../contexts/SessionContext';
+import { useToken } from '../../contexts/SessionContext';
 
 const NavBar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
-    const { token } = useContext(SessionContext)
+    const token = useToken()
 
     useEffect(() => {
         const handleScroll = () => {

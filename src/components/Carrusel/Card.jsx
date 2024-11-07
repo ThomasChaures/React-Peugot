@@ -25,11 +25,11 @@ const Card = ({ auto }) => {
       
       </> : null}
 
-      <div className="mb-4 w-full">
+      <div className="mb-4 h-[250px] w-full">
         <img
           src={auto.imagen || placeholder}
           alt={auto.modelo || "Auto"}
-          className="w-full h-60 object-cover"
+          className="w-full h-full object-cover"
         />
       </div>
       <div className="px-4">
