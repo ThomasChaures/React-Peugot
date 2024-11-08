@@ -11,3 +11,8 @@
     background-size: 100px;
     background-position: 87% 80%;
 }
+
+
+.button:hover{
+    color: rgb(2 6 23) !important;
+}

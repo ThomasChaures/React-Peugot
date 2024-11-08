@@ -3,6 +3,33 @@ import "./HeroSection.css";
 
 const HeroSection = () => {
   const [usage, setUsage] = useState("new");
+  const [brand, setBrand] = useState("");
+  const [type, setType] = useState("");
+  const [price, setPrice] = useState('');
+
+  const handleChangeBrand = (event) => setBrand(event.target.value);
+  const handleChangeType = (event) => setType(event.target.value);
+  const handleChangePrice = (event) => setPrice(event.target.value);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const params = new URLSearchParams();
+    if (brand) params.append("brand", brand);
+    if (type) params.append("name", type);
+    if (price) params.append("precioMaximo", price);
+    if (usage) params.append("usage", usage);
+    console.log(params.toString())
+    fetch(`http://localhost:3333/api/autos?precioMinimo=0${params.toString()}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": localStorage.getItem("token"),
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error("Error fetching data:", error));
+  };
 
   return (
     <section className="h-screen relative background-hero">
@@ -15,103 +42,128 @@ const HeroSection = () => {
 
           <div className="mt-2">
             <form
-              action="#"
+              onSubmit={handleSubmit}
               className="flex flex-col items-center justify-center gap-3"
             >
               <div className="flex gap-2">
+              <button
+                  type="button"
+                  onClick={() => setUsage("")}
+                  className={`text-center outline-none transition-all text-white text-md h-10 cursor-pointer w-[80px] ${
+                    usage === ""
+                      ? "hover:bg-black/20 bg-black/0 border-b-2 border-white"
+                      : "hover:bg-black/20 bg-black/0  border-none"
+                  }`}
+                >
+                  All
+                </button>
                 <button
                   type="button"
-                  aria-label="New Cars Filter"
                   onClick={() => setUsage("new")}
                   className={`text-center outline-none transition-all text-white text-md h-10 cursor-pointer w-[80px] ${
                     usage === "new"
                       ? "hover:bg-black/20 bg-black/0 border-b-2 border-white"
-                      : "hover:bg-black/20 bg-black/0  border-white/0"
+                      : "hover:bg-black/20 bg-black/0  border-none"
                   }`}
                 >
                   New
                 </button>
                 <button
                   type="button"
-                  aria-label="Used Cars Filter"
                   onClick={() => setUsage("used")}
                   className={`text-center outline-none transition-all text-white text-md h-10 cursor-pointer w-[80px] ${
                     usage === "used"
                       ? "hover:bg-black/20 bg-black/0 border-b-2 border-white"
-                      : "hover:bg-black/20 bg-black/0  border-white/0"
+                      : "hover:bg-black/20 bg-black/0 border-white/0"
                   }`}
                 >
                   Used
                 </button>
               </div>
+
               <div className="flex justify-between bg-white w-[800px] py-1 pr-1 pl-1 rounded-full">
-                {/* Select Modelos */}
-
                 <select
-                  name="model"
-                  aria-label="Select Model"
+                  name="brand"
                   className="w-[20%] cursor-pointer bg-transparent px-2 rounded-full border border-white hover:border-black"
-                  id="model"
-                  defaultValue=""
+                  onChange={handleChangeBrand}
+                  value={brand}
                 >
                   <option disabled value="">
-                    Select Model
+                    Select Brand
                   </option>
+                  <option value="Audi">Audi</option>
+                  <option value="BMW">BMW</option>
+                  <option value="Chevrolet">Chevrolet</option>
+                  <option value="Ford">Ford</option>
+                  <option value="Peugeot">Peugeot</option>
+                  <option value="Volkswagen">Volkswagen</option>
                 </select>
-
-                {/* Select Tipos */}
-
-                <select
-                  name="type"
-                  aria-label="Select Type"
-                  className="w-[20%] cursor-pointer bg-transparent px-2 rounded-full border border-white hover:border-black"
-                  id="type"
-                  defaultValue=""
-                >
-                  <option disabled value="">
-                    Select Type
-                  </option>
-                </select>
-
-                {/* Select Precios */}
 
                 <input
-                  name="prices"
-                  aria-label="Select Prices"
-                  className="w-[15%] placeholder-black cursor-pointer outline-none bg-transparent px-2 rounded-full border border-white hover:border-black"
-                  id="prices"
-                  placeholder="Price"
-                  defaultValue=""
+                  name="type"
+                  className="w-[20%] cursor-pointer bg-transparent px-2 rounded-full border border-white placeholder-black hover:border-black"
+                  onChange={handleChangeType}
+                  placeholder="Name"
+                  value={type}
                 />
-    
+
+                <input
+                  name="price"
+                  className="w-[15%] placeholder-black cursor-pointer outline-none bg-transparent px-2 rounded-full border border-white hover:border-black"
+                  onChange={handleChangePrice}
+                  placeholder="Price"
+                  value={price || ""}
+                />
 
                 <button
-                  type="button"
-                  className="bg-blue-600 text-white items-center font-semibold gap-2 flex w-[20%] justify-center py-3 hover:bg-blue-600/80 transition-all rounded-full"
+                  type="submit"
+                  disabled={!brand && !type && !price}
+                  className={`${
+                    !brand && !type && !price
+                      ? "bg-blue-600/80 cursor-not-allowed"
+                      : "bg-blue-600 hover:bg-blue-600/80"
+                  } text-white items-center font-semibold gap-2 flex w-[20%] justify-center py-3 transition-all rounded-full`}
                 >
-               <i className="fa-solid fa-magnifying-glass"></i>
+                  <i className="fa-solid fa-magnifying-glass"></i>
                   Search Car
                 </button>
               </div>
             </form>
           </div>
-
           <div className="max-w-[750px]">
-               <p className="text-center mb-4 text-white/70">Browse Featured Model </p>
-              <ul className="flex items-center justify-center gap-4 flex-wrap">
-                 <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">Hatchback</li>
-                 <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">SUV</li>
-                 <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">Sedan</li>
-                 <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">MPV</li>
-                 <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">Convertible</li>
-                 <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">Van</li>
-                 <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">Coupe</li>
-                 <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">Pickup</li>
-              </ul>
+            <p className="text-center mb-4 text-white/70">
+              Browse Featured Model{" "}
+            </p>
+            <ul className="flex items-center justify-center gap-4 flex-wrap">
+              <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">
+                Hatchback
+              </li>
+              <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">
+                SUV
+              </li>
+              <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">
+                Sedan
+              </li>
+              <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">
+                MPV
+              </li>
+              <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">
+                Convertible
+              </li>
+              <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">
+                Van
+              </li>
+              <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">
+                Coupe
+              </li>
+              <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">
+                Pickup
+              </li>
+            </ul>
           </div>
         </div>
       </div>
-      <div className="absolute bottom-0 left-0 h-12 w-[100%]  bg-white rounded-tl-full rounded-tr-full"></div>
+      <div className="absolute bottom-0 left-0 h-12 w-full bg-white rounded-tl-full rounded-tr-full"></div>
     </section>
   );
 };

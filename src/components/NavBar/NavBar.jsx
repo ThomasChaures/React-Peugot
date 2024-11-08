@@ -24,12 +24,12 @@ const NavBar = () => {
     }, []);
 
     return (
-        <nav className={`fixed flex top-0 left-0 w-full z-30 ${isScrolled ? 'bg-black' : 'bg-transparent'} transition-colors duration-300`}>
-            <div className='flex w-full py-4 justify-between px-20 items-center'>
-                <Link className="text-3xl text-white font-semibold text-uppercase" to="/">GetCar</Link>
+        <nav className={`fixed flex top-0 left-0 text-white w-full font-semibold z-30 ${isScrolled ? 'bg-black text-white' : 'bg-transparent'} transition-colors duration-300`}>
+            <div className='flex w-full py-4 max-w-[1360px] mx-auto justify-between items-center'>
+                <Link className="text-3xl  text-uppercase" to="/">MotorHub</Link>
 
                 <div>
-                    <ul className='flex gap-4 text-white'>
+                    <ul className='flex gap-4'>
                         {
                             !token
                                 ? <>

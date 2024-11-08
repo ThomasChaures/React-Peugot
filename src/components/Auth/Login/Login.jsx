@@ -33,7 +33,7 @@ const Login = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form className="mt-20" onSubmit={handleSubmit}>
         <input
           type="email"
           name="email"

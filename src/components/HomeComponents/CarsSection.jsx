@@ -6,7 +6,7 @@ const CarsSection = ({autos}) => {
   return <>
    <section className="max-w-[1360px] py-20 mx-auto  ">
    <div className="flex items-center justify-between mb-14">
-        <h2 className="text-3xl font-bold text-black">
+        <h2 className="text-3xl font-bold text-slate-950">
           Explore All Vehicles
         </h2>
 
