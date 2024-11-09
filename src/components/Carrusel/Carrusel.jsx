@@ -35,7 +35,7 @@ const Carrusel = ({ item }) => {
       <div
         ref={carruselRef}
         id="scrollable"
-        className="flex overflow-hidden scrollbar-custom gap-6"
+        className="flex  overflow-hidden scrollbar-custom gap-6"
       >
         {item.map((auto, indice) => (
           <li key={indice} className="list-none flex-shrink-0">

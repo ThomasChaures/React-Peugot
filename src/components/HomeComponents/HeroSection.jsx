@@ -43,7 +43,7 @@ const HeroSection = () => {
           <div className="mt-2">
             <form
               onSubmit={handleSubmit}
-              className="flex flex-col items-center justify-center gap-3"
+              className="flex flex-col h-full items-center justify-center gap-3"
             >
               <div className="flex gap-2">
               <button
@@ -81,10 +81,10 @@ const HeroSection = () => {
                 </button>
               </div>
 
-              <div className="flex justify-between bg-white w-[800px] py-1 pr-1 pl-1 rounded-full">
+              <div className="flex justify-between items-center bg-white w-[800px] h-full py-1 pr-1 pl-1 rounded-full">
                 <select
                   name="brand"
-                  className="w-[20%] cursor-pointer bg-transparent px-2 rounded-full border border-white hover:border-black"
+                  className="min-w-[20%] outline-none cursor-pointer text-sm bg-transparent px-2 "
                   onChange={handleChangeBrand}
                   value={brand}
                 >
@@ -99,17 +99,30 @@ const HeroSection = () => {
                   <option value="Volkswagen">Volkswagen</option>
                 </select>
 
-                <input
-                  name="type"
-                  className="w-[20%] cursor-pointer bg-transparent px-2 rounded-full border border-white placeholder-black hover:border-black"
-                  onChange={handleChangeType}
-                  placeholder="Name"
-                  value={type}
-                />
+                <div className="w-[1px] h-[80%] bg-black/30"></div>
 
+                <select
+                  name="type"
+                  className="w-[20%] cursor-pointer  outline-none text-sm bg-transparent px-2 rounded-full border border-white hover:border-black"
+                  onChange={handleChangeType}
+                  value={brand}
+                >
+                  <option disabled value="">
+                    Select Type
+                  </option>
+                  <option value="Audi">Audi</option>
+                  <option value="BMW">BMW</option>
+                  <option value="Chevrolet">Chevrolet</option>
+                  <option value="Ford">Ford</option>
+                  <option value="Peugeot">Peugeot</option>
+                  <option value="Volkswagen">Volkswagen</option>
+                </select>
+
+                <div className="w-[1px] h-[80%] bg-black/30"></div>
+                
                 <input
                   name="price"
-                  className="w-[15%] placeholder-black cursor-pointer outline-none bg-transparent px-2 rounded-full border border-white hover:border-black"
+                  className="w-[15%] text-sm  placeholder-black cursor-pointer outline-none bg-transparent px-2 rounded-full border border-white hover:border-black"
                   onChange={handleChangePrice}
                   placeholder="Price"
                   value={price || ""}
@@ -122,7 +135,8 @@ const HeroSection = () => {
                     !brand && !type && !price
                       ? "bg-blue-600/80 cursor-not-allowed"
                       : "bg-blue-600 hover:bg-blue-600/80"
-                  } text-white items-center font-semibold gap-2 flex w-[20%] justify-center py-3 transition-all rounded-full`}
+                  } text-white items-center 
+                  text-sm gap-2 flex w-[20%] justify-center py-[14px] transition-all rounded-full`}
                 >
                   <i className="fa-solid fa-magnifying-glass"></i>
                   Search Car
