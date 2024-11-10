@@ -6,6 +6,7 @@ import Admin from "./components/Layout/AdminLayout/Layout.jsx";
 import ProtectedRoutes from "./components/Rutas/ProtectedRoutes.jsx";
 import Login from "./components/Auth/Login/Login.jsx";
 import Register from "./components/Auth/Register/Register.jsx";
+import Logout from "./components/Auth/Logout/Logout.jsx";
 import "./index.css";
 import Home from "./pages/Home.jsx";
 import DetailsCars from "./pages/Autos/Details.jsx";
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register></Register>,
+      },
+      {
+        path: "/logout",
+        element: <Logout></Logout>,
       },
     ],
   },
