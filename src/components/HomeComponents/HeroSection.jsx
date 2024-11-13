@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./HeroSection.css";
+import { getAutos, getSearch } from "../../service/autos.service.js";
 
 const HeroSection = () => {
   const [usage, setUsage] = useState("new");
@@ -19,14 +20,7 @@ const HeroSection = () => {
     if (price) params.append("precioMaximo", price);
     if (usage) params.append("usage", usage);
     console.log(params.toString())
-    fetch(`http://localhost:3333/api/autos?precioMinimo=0${params.toString()}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "auth-token": localStorage.getItem("token"),
-      },
-    })
-      .then((response) => response.json())
+      getSearch(`${params.toString()}`)
       .then((data) => console.log(data))
       .catch((error) => console.error("Error fetching data:", error));
   };
@@ -105,7 +99,7 @@ const HeroSection = () => {
                   name="type"
                   className="w-[20%] cursor-pointer  outline-none text-sm bg-transparent px-2 rounded-full border border-white hover:border-black"
                   onChange={handleChangeType}
-                  value={brand}
+                  value={type}
                 >
                   <option disabled value="">
                     Select Type

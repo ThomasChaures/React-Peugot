@@ -1,26 +1,26 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogin } from "../../../contexts/session.context.jsx";
+import { login } from "../../../service/auth.service.js";
 
 const Login = () => {
   const navigate = useNavigate();
-  const onLogin  = useLogin();
+  const onLogin = useLogin();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:3333/api/usuarios/login", {
-      method: "POST",
-      body: JSON.stringify({ email: email, password: password }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
-    console.log(data);
-    onLogin(data.token);
-    navigate("/");
+    login({ email: email, password: password })
+      .then((usuario) => {
+        console.log(usuario);
+        console.log(usuario);
+        onLogin(usuario.token);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleChangeEmail = (event) => {

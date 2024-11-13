@@ -10,3 +10,24 @@ export async function login({ email, password }) {
     },
   });
 }
+
+export async function register({
+  email,
+  password,
+  confirmPassword,
+  name,
+  surname,
+}) {
+  return call({
+    uri: "usuarios",
+    method: "POST",
+    body: {
+      email: email,
+      password: password,
+      passwordConfirm: confirmPassword,
+      name: name,
+      surname: surname,
+      role: ''
+    },
+  });
+}

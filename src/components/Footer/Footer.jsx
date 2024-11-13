@@ -3,8 +3,8 @@ import React from "react";
 const Footer = () => {
   return (
     <footer className="bg-slate-950 pb-20 ">
-      <div class="relative w-full  h-10 bg-slate-950 overflow-hidden">
-        <div class="absolute w-full h-20 bg-white rounded-full top-[-40px] left-1/2 trasform translate-x-[-50%]"></div>
+      <div className="relative w-full  h-10 bg-slate-950 overflow-hidden">
+        <div className="absolute w-full h-20 bg-white rounded-full top-[-40px] left-1/2 trasform translate-x-[-50%]"></div>
       </div>
       <div className="max-w-[1360px] pt-20 container flex items-start justify-between mx-auto">
         <div className="flex  gap-40 container items-start ">
