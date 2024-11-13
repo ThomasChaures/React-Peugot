@@ -1,15 +1,15 @@
-import { StrictMode } from "react"; // react
+import { lazy, StrictMode, Suspense } from "react"; // react
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./components/Layout/Layout.jsx";
 import Admin from "./components/Layout/AdminLayout/Layout.jsx";
 import ProtectedRoutes from "./components/Rutas/ProtectedRoutes.jsx";
-import Login from "./components/Auth/Login/Login.jsx";
-import Register from "./components/Auth/Register/Register.jsx";
-import Logout from "./components/Auth/Logout/Logout.jsx";
+const Login = lazy(() => import("./components/Auth/Login/Login.jsx"));
+const Register = lazy(() => import("./components/Auth/Register/Register.jsx"));
+const Logout = lazy(() => import("./components/Auth/Logout/Logout.jsx"));
 import "./index.css";
-import Home from "./pages/Home.jsx";
-import DetailsCars from "./pages/Autos/Details.jsx";
+const Home = lazy(() => import("./pages/Home.jsx"));
+const DetailsCars = lazy(() => import("./pages/Autos/Details.jsx"));
 import Error404Page from "./pages/Error404Page.jsx";
 const router = createBrowserRouter([
   {
@@ -17,10 +17,12 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        errorElement: <Error404Page />, 
+        errorElement: <Error404Page />,
         element: (
           <ProtectedRoutes>
-            <Home></Home>
+            <Suspense fallback={<div>Loading...</div>}>
+              <Home></Home>
+            </Suspense>
           </ProtectedRoutes>
         ),
       },
@@ -28,26 +30,28 @@ const router = createBrowserRouter([
         path: "/vehicle/details/:id",
         element: (
           <ProtectedRoutes>
-            <DetailsCars></DetailsCars>
+            <Suspense fallback={<div>Loading...</div>}>
+              <DetailsCars></DetailsCars>
+            </Suspense>
           </ProtectedRoutes>
         ),
       },
       {
         path: "/login",
-        element: <Login></Login>,
+        element: <Suspense fallback={<div>Loading...</div>}><Login></Login></Suspense>,
       },
       {
         path: "/register",
-        element: <Register></Register>,
+        element: <Suspense fallback={<div>Loading...</div>}><Register></Register></Suspense>,
       },
       {
         path: "/logout",
-        element: <Logout></Logout>,
+        element: <Suspense fallback={<div>Loading...</div>}><Logout></Logout></Suspense>,
       },
       {
-        path: '*',
+        path: "*",
         element: <Error404Page />
-      }
+      },
     ],
   },
   {
@@ -57,17 +61,9 @@ const router = createBrowserRouter([
         path: "/admin",
         element: (
           <ProtectedRoutes>
-            <Home></Home>
+     
           </ProtectedRoutes>
         ),
-      },
-      {
-        path: "/admin/login",
-        element: <Login></Login>,
-      },
-      {
-        path: "/admin/register",
-        element: <Register></Register>,
       },
     ],
   },

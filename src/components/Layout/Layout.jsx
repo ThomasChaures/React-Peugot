@@ -8,7 +8,7 @@ const Layout = () => {
     <>
       <SessionProvider>
         <NavBar />
-        <main className="poppins-regular">
+        <main className="min-h-screen !overflow-x-hidden poppins-regular">
           <Outlet />
         </main>
       </SessionProvider>

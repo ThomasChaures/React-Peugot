@@ -10,7 +10,7 @@ import volkswagen from "../../assets/img/marcas/volkswagen.svg";
 const BrandsSection = () => {
   return (
     <>
-      <section className="bg-white pb-32 pt-10 mx-auto">
+      <section className="bg-white max-[1380px]:px-10 pb-32 pt-10 mx-auto">
         <div className="max-w-[1360px] mx-auto">
         <div className="flex items-center justify-between mb-10">
         <h2 className="text-3xl font-bold text-slate-950">

@@ -4,7 +4,7 @@ import './CallToAction.css'
 const CallToAction = () => {
   return (
     <>
-    <section className='max-w-[1360px] mb-10 flex gap-10 mx-auto'>
+    <section className='max-w-[1360px] mb-10 max-[1380px]:px-10 flex gap-10 mx-auto'>
         <div className='buy bg-slate-950/100 w-1/2 h-[340px] px-10 py-4 flex justify-center flex-col gap-4 rounded-xl'>
                 <h2 className='w-[45%] text-white text-3xl font-bold'>Are You Looking For a Car?</h2>
 
