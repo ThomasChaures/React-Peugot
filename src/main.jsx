@@ -10,12 +10,14 @@ import Logout from "./components/Auth/Logout/Logout.jsx";
 import "./index.css";
 import Home from "./pages/Home.jsx";
 import DetailsCars from "./pages/Autos/Details.jsx";
+import Error404Page from "./pages/Error404Page.jsx";
 const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
       {
         path: "/",
+        errorElement: <Error404Page />, 
         element: (
           <ProtectedRoutes>
             <Home></Home>
@@ -42,6 +44,10 @@ const router = createBrowserRouter([
         path: "/logout",
         element: <Logout></Logout>,
       },
+      {
+        path: '*',
+        element: <Error404Page />
+      }
     ],
   },
   {

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate} from "react-router-dom";
-import {useLogin} from "../../../contexts/SessionContext.jsx"
+import {useLogin} from "../../../contexts/session.context.jsx"
 
 const Register = () => {
   const [email, setEmail] = useState("");

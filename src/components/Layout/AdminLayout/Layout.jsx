@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import NavBar from "../../NavBar/NavBar";
-import {SessionProvider} from "../../../contexts/SessionContext";
+import {SessionProvider} from "../../../contexts/session.context";
 const Layout = () => {
   return (
     <>

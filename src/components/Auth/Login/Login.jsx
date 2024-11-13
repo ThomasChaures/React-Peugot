@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useLogin } from "../../../contexts/SessionContext.jsx";
+import { useLogin } from "../../../contexts/session.context.jsx";
 
 const Login = () => {
   const navigate = useNavigate();
