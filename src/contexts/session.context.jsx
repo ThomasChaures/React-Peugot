@@ -25,17 +25,21 @@ const useToken = () => {
 
 const SessionProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
-  const navigate = useNavigate(); 
+  const [id, setId] = useState(localStorage.getItem("id"));
+  const navigate = useNavigate();
 
   const onLogout = () => {
     localStorage.clear();
     setToken(null);
-    navigate("/login"); 
+    setId(null);
+    navigate("/login");
   };
 
-  const onLogin = (jwt) => {
+  const onLogin = (jwt, id) => {
     localStorage.setItem("token", jwt);
+    localStorage.setItem("id", id);
     setToken(jwt);
+    setId(id);
   };
 
   useEffect(() => {
@@ -47,13 +51,13 @@ const SessionProvider = ({ children }) => {
           "auth-token": token,
         },
       })
-        .then((response) => response.json()) 
+        .then((response) => response.json())
         .then((data) => {
           if (data.message) {
             onLogout();
-          } else{
-            onLogin(token)
-        }
+          } else {
+            onLogin(token);
+          }
         });
     }
   }, []);

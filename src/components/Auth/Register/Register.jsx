@@ -21,7 +21,7 @@ const Register = () => {
     })
       .then((data) => {
         if (response.status === 201) {
-          onLogin(data.usuario.token);
+          onLogin(data.usuario.token, data.usuario._id);
           navigate("/");
         } else {
           setError("No se pudo registrar al usuario.");

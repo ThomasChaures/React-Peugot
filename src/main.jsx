@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./components/Layout/Layout.jsx";
 import Admin from "./components/Layout/AdminLayout/Layout.jsx";
 import ProtectedRoutes from "./components/Rutas/ProtectedRoutes.jsx";
+import ProtectedRoutesAdmin from "./components/Rutas/ProtectedRoutesAdmin.jsx";
 const Login = lazy(() => import("./components/Auth/Login/Login.jsx"));
 const Register = lazy(() => import("./components/Auth/Register/Register.jsx"));
 const Logout = lazy(() => import("./components/Auth/Logout/Logout.jsx"));
@@ -11,7 +12,8 @@ import "./index.css";
 const Home = lazy(() => import("./pages/Home.jsx"));
 const DetailsCars = lazy(() => import("./pages/Autos/Details.jsx"));
 import Error404Page from "./pages/Error404Page.jsx";
-import IndexAdmin from "./pages/Admin/index.jsx";
+
+const IndexAdmin = lazy(() => import("./pages/Admin/index.jsx"))
 const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -73,9 +75,9 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         element: (
-          <ProtectedRoutes>
-            <IndexAdmin></IndexAdmin>
-          </ProtectedRoutes>
+          <ProtectedRoutesAdmin>
+            <Suspense fallback={<div>Loading...</div>}><IndexAdmin></IndexAdmin></Suspense>
+          </ProtectedRoutesAdmin>
         ),
       },
     ],

@@ -8,7 +8,7 @@ export async function login({ email, password }) {
       email: email,
       password: password,
     },
-  });
+  })
 }
 
 export async function register({
@@ -19,7 +19,7 @@ export async function register({
   surname,
 }) {
   return call({
-    uri: "usuarios",
+    uri: "usuarios/register",
     method: "POST",
     body: {
       email: email,
@@ -34,4 +34,8 @@ export async function register({
 
 export async function getUsers() {
    return call({uri: 'usuarios'})
+}
+
+export async function getUserData(id){
+    return call({uri: `usuario/${id}`})
 }

@@ -13,9 +13,7 @@ const Login = () => {
     e.preventDefault();
     login({ email: email, password: password })
       .then((usuario) => {
-        console.log(usuario);
-        console.log(usuario);
-        onLogin(usuario.token);
+        onLogin(usuario.token, usuario._id);
         navigate("/");
       })
       .catch((error) => {
