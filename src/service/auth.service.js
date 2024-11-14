@@ -31,3 +31,7 @@ export async function register({
     },
   });
 }
+
+export async function getUsers() {
+   return call({uri: 'usuarios'})
+}

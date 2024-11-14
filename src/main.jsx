@@ -11,6 +11,7 @@ import "./index.css";
 const Home = lazy(() => import("./pages/Home.jsx"));
 const DetailsCars = lazy(() => import("./pages/Autos/Details.jsx"));
 import Error404Page from "./pages/Error404Page.jsx";
+import IndexAdmin from "./pages/Admin/index.jsx";
 const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -38,19 +39,31 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <Suspense fallback={<div>Loading...</div>}><Login></Login></Suspense>,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Login></Login>
+          </Suspense>
+        ),
       },
       {
         path: "/register",
-        element: <Suspense fallback={<div>Loading...</div>}><Register></Register></Suspense>,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Register></Register>
+          </Suspense>
+        ),
       },
       {
         path: "/logout",
-        element: <Suspense fallback={<div>Loading...</div>}><Logout></Logout></Suspense>,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Logout></Logout>
+          </Suspense>
+        ),
       },
       {
         path: "*",
-        element: <Error404Page />
+        element: <Error404Page />,
       },
     ],
   },
@@ -61,7 +74,7 @@ const router = createBrowserRouter([
         path: "/admin",
         element: (
           <ProtectedRoutes>
-     
+            <IndexAdmin></IndexAdmin>
           </ProtectedRoutes>
         ),
       },
