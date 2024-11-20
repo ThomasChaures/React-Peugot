@@ -27,7 +27,7 @@ const ProtectedRoutesAdmin = ({ children }) => {
 
   if (loading) return null; 
 
-  if (!token || !userLogged || userLogged.role !== "User") {
+  if (!token || !userLogged || userLogged.role !== "Admin") {
     const onLogout = useLogOut()
     onLogout()
     return <Navigate to="/login" state={{ from: location }} />;

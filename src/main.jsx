@@ -12,8 +12,13 @@ import "./index.css";
 const Home = lazy(() => import("./pages/Home.jsx"));
 const DetailsCars = lazy(() => import("./pages/Autos/Details.jsx"));
 import Error404Page from "./pages/Error404Page.jsx";
-
-const IndexAdmin = lazy(() => import("./pages/Admin/index.jsx"))
+const IndexAutos = lazy(() => import("./pages/Admin/IndexAutos.jsx"));
+const IndexUsuarios = lazy(() => import("./pages/Admin/IndexUsers.jsx"));
+const IndexAdmin = lazy(() => import("./pages/Admin/index.jsx"));
+const CreateAutos = lazy(() => import("./pages/Admin/CrudAutos/CreateAutos.jsx"))
+const EditAutos = lazy(() => import("./pages/Admin/CrudAutos/EditAutos.jsx"))
+const UpdateAutos = lazy(() => import("./pages/Admin/CrudAutos/UpdateAutos.jsx"))
+const DeleteAutos = lazy(() => import("./pages/Admin/CrudAutos/DeleteAutos.jsx"))
 const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -76,7 +81,29 @@ const router = createBrowserRouter([
         path: "/admin",
         element: (
           <ProtectedRoutesAdmin>
-            <Suspense fallback={<div>Loading...</div>}><IndexAdmin></IndexAdmin></Suspense>
+            <Suspense fallback={<div>Loading...</div>}>
+              <IndexAdmin></IndexAdmin>
+            </Suspense>
+          </ProtectedRoutesAdmin>
+        ),
+      },
+      {
+        path: "/admin/users",
+        element: (
+          <ProtectedRoutesAdmin>
+            <Suspense fallback={<div>Loading...</div>}>
+                <IndexUsuarios></IndexUsuarios>
+            </Suspense>
+          </ProtectedRoutesAdmin>
+        ),
+      },
+      {
+        path: "/admin/vehicles",
+        element: (
+          <ProtectedRoutesAdmin>
+            <Suspense fallback={<div>Loading...</div>}>
+                <IndexAutos></IndexAutos>
+            </Suspense>
           </ProtectedRoutesAdmin>
         ),
       },
