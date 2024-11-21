@@ -22,16 +22,20 @@ const NavBar = () => {
   const openMenu = `${isOpen === true ? "max-lg:absolute max-lg:top-20 max-lg:bg-slate-950  max-lg:w-full max-lg:px-4 max-lg:left-0 transition-move duration-300" : "max-lg:absolute max-lg:top-20 max-lg:bg-slate-950  max-lg:w-full max-lg:px-4 max-lg:left-[1000px] transition-move duration-300"}`;
   const openUl = `${isOpen === true ? "flex max-lg:flex-col gap-4 max-lg:py-4" : "flex max-lg:flex-col gap-4 max-lg:py-4 flex gap-4"}`;
 
-  // Clases condicionales de acuerdo a la ruta y el scroll
-  const headerClasses = `${
-    location.pathname === "/" && !isScrolled
-      ? " text-white"
-      : "bg-slate-950 text-white"
-  }`;
+
+  const headerClasses = (() => {
+    if (location.pathname === "/login" || location.pathname === "/register") {
+      return "hidden";
+    }
+    return location.pathname === "/" && !isScrolled
+      ? "text-white"
+      : "bg-slate-950 text-white";
+  })();
+  
 
   return (
     <nav
-      className={`fixed flex top-0 max-lg:px-4 left-0 max-[1380px]:px-10 w-full font-semibold z-30 transition-colors duration-300 ${headerClasses}`}
+      className={`absolute flex top-0 max-lg:px-4 left-0 max-[1380px]:px-10 w-full font-semibold z-30 transition-colors duration-300 ${headerClasses}`}
     >
       <div className="flex w-full py-4 max-w-[1360px] mx-auto justify-between items-center">
         <Link className="text-3xl uppercase" to="/">
@@ -62,6 +66,21 @@ const NavBar = () => {
                 <li onClick={() => setIsOpen(prevState => !prevState)} className="nav-item max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 ">
                   <Link className="nav-link" to="/">
                     Home
+                  </Link>
+                </li>
+                <li onClick={() => setIsOpen(prevState => !prevState)} className="nav-item max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 ">
+                  <Link className="nav-link" to="/">
+                    Vehicles
+                  </Link>
+                </li>
+                <li onClick={() => setIsOpen(prevState => !prevState)} className="nav-item max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 ">
+                  <Link className="nav-link" to="/">
+                    Brands
+                  </Link>
+                </li>
+                <li onClick={() => setIsOpen(prevState => !prevState)} className="nav-item max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 ">
+                  <Link className="nav-link" to="/">
+                    Profile
                   </Link>
                 </li>
                 <li onClick={() => setIsOpen(prevState => !prevState)} className="nav-item  max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 ">

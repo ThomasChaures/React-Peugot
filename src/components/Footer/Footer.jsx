@@ -1,8 +1,15 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 const Footer = () => {
+  const location = useLocation();
+  const footerClassesAuth = (() => {
+    if (location.pathname === "/login" || location.pathname === "/register") {
+      return "hidden";
+    }
+  })();
   return (
-    <footer className="bg-slate-950 pb-20 ">
+    <footer className={`bg-slate-950 pb-20 ${footerClassesAuth}`}>
       <div className="relative w-full  h-10 bg-slate-950 overflow-hidden">
         <div className="absolute w-full h-20 bg-white rounded-full top-[-40px] left-1/2 trasform translate-x-[-50%]"></div>
       </div>

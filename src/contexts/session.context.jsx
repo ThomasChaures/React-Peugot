@@ -23,6 +23,11 @@ const useToken = () => {
   return token;
 };
 
+const useId = () => {
+  const {id} = useSession();
+  return id;
+}
+
 const SessionProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [id, setId] = useState(localStorage.getItem("id"));
@@ -69,4 +74,4 @@ const SessionProvider = ({ children }) => {
   );
 };
 
-export { SessionContext, SessionProvider, useLogOut, useLogin, useToken };
+export { SessionContext, SessionProvider, useLogOut, useLogin, useToken, useId };
