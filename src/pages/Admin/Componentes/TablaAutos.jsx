@@ -17,7 +17,7 @@ const TablaAutos = () => {
   )
 
   return (
-    <div className="p-6 pt-20 bg-gradient-to-br from-gray-800 to-gray-900 min-h-screen text-gray-300">
+    <div className="p-6 pt-20  min-h-screen text-gray-300">
       <div className="max-w-10xl mx-auto bg-gray-800 shadow-lg rounded-lg overflow-hidden">
         <div className="flex items-center justify-between p-5 border-b border-gray-700">
           <h1 className="text-2xl font-bold text-white">Vehicle</h1>

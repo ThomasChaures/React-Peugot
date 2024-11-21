@@ -15,10 +15,17 @@ import Error404Page from "./pages/Error404Page.jsx";
 const IndexAutos = lazy(() => import("./pages/Admin/IndexAutos.jsx"));
 const IndexUsuarios = lazy(() => import("./pages/Admin/IndexUsers.jsx"));
 const IndexAdmin = lazy(() => import("./pages/Admin/index.jsx"));
-const CreateAutos = lazy(() => import("./pages/Admin/CrudAutos/CreateAutos.jsx"))
-const EditAutos = lazy(() => import("./pages/Admin/CrudAutos/EditAutos.jsx"))
-const UpdateAutos = lazy(() => import("./pages/Admin/CrudAutos/UpdateAutos.jsx"))
-const DeleteAutos = lazy(() => import("./pages/Admin/CrudAutos/DeleteAutos.jsx"))
+const CreateAutos = lazy(() =>
+  import("./pages/Admin/CrudAutos/CreateAutos.jsx")
+);
+const EditAutos = lazy(() => import("./pages/Admin/CrudAutos/EditAutos.jsx"));
+const UpdateAutos = lazy(() =>
+  import("./pages/Admin/CrudAutos/UpdateAutos.jsx")
+);
+const DeleteAutos = lazy(() =>
+  import("./pages/Admin/CrudAutos/DeleteAutos.jsx")
+);
+const IndexSellCar = lazy(() => import("./pages/SellCar/index.jsx"));
 const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -40,6 +47,16 @@ const router = createBrowserRouter([
           <ProtectedRoutes>
             <Suspense fallback={<div>Loading...</div>}>
               <DetailsCars></DetailsCars>
+            </Suspense>
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "/vehicle/sell",
+        element: (
+          <ProtectedRoutes>
+            <Suspense fallback={<div>Loading...</div>}>
+              <IndexSellCar></IndexSellCar>
             </Suspense>
           </ProtectedRoutes>
         ),
@@ -92,7 +109,7 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoutesAdmin>
             <Suspense fallback={<div>Loading...</div>}>
-                <IndexUsuarios></IndexUsuarios>
+              <IndexUsuarios></IndexUsuarios>
             </Suspense>
           </ProtectedRoutesAdmin>
         ),
@@ -102,7 +119,7 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoutesAdmin>
             <Suspense fallback={<div>Loading...</div>}>
-                <IndexAutos></IndexAutos>
+              <IndexAutos></IndexAutos>
             </Suspense>
           </ProtectedRoutesAdmin>
         ),

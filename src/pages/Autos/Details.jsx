@@ -7,6 +7,7 @@ import img2 from "../../assets/img/auto2.jpeg";
 import img3 from "../../assets/img/auto3.webp";
 import { useParams } from "react-router-dom";
 import { getUserData } from "../../service/auth.service";
+import { getAuto } from "../../service/autos.service";
 import { useId } from "../../contexts/session.context";
 const Details = () => {
   let { id } = useParams();
@@ -46,14 +47,7 @@ const Details = () => {
       console.log(data.email);
     });
 
-    fetch(`http://localhost:3333/api/autos/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "auth-token": localStorage.getItem("token"),
-      },
-    })
-      .then((response) => response.json())
+    getAuto(id)
       .then((data) => {
         console.log("auto", data);
         setAuto(data);
