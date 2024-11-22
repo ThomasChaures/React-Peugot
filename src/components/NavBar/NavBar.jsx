@@ -19,9 +19,16 @@ const NavBar = () => {
     };
   }, []);
 
-  const openMenu = `${isOpen === true ? "max-lg:absolute max-lg:top-20 max-lg:bg-slate-950  max-lg:w-full max-lg:px-4 max-lg:left-0 transition-move duration-300" : "max-lg:absolute max-lg:top-20 max-lg:bg-slate-950  max-lg:w-full max-lg:px-4 max-lg:left-[1000px] transition-move duration-300"}`;
-  const openUl = `${isOpen === true ? "flex max-lg:flex-col gap-4 max-lg:py-4" : "flex max-lg:flex-col gap-4 max-lg:py-4 flex gap-4"}`;
-
+  const openMenu = `${
+    isOpen === true
+      ? "max-lg:absolute max-lg:top-20 max-lg:bg-slate-950  max-lg:w-full max-lg:px-4 max-lg:left-0 transition-move duration-300"
+      : "max-lg:absolute max-lg:top-20 max-lg:bg-slate-950  max-lg:w-full max-lg:px-4 max-lg:left-[1000px] transition-move duration-300"
+  }`;
+  const openUl = `${
+    isOpen === true
+      ? "flex max-lg:flex-col gap-4 max-lg:py-4"
+      : "flex max-lg:flex-col gap-4 max-lg:py-4 flex gap-4"
+  }`;
 
   const headerClasses = (() => {
     if (location.pathname === "/login" || location.pathname === "/register") {
@@ -31,7 +38,6 @@ const NavBar = () => {
       ? "text-white"
       : "bg-slate-950 text-white";
   })();
-  
 
   return (
     <nav
@@ -39,10 +45,14 @@ const NavBar = () => {
     >
       <div className="flex w-full py-4 max-w-[1360px] mx-auto justify-between items-center">
         <Link className="text-3xl uppercase" to="/">
-          MotorHub
+          <h1>MotorHub</h1>
         </Link>
 
-        <div id="tabMenu" onClick={() => setIsOpen(prevState => !prevState)} className="lg:hidden text-2xl cursor-pointer hover:rotate-90 rotate-0 transform-gpu transition-transform	 duration-300">
+        <div
+          id="tabMenu"
+          onClick={() => setIsOpen((prevState) => !prevState)}
+          className="lg:hidden text-2xl cursor-pointer hover:rotate-90 rotate-0 transform-gpu transition-transform	 duration-300"
+        >
           <i className="fa-solid fa-bars"></i>
         </div>
 
@@ -50,12 +60,18 @@ const NavBar = () => {
           <ul className={openUl}>
             {!token ? (
               <>
-                <li onClick={() => setIsOpen(prevState => !prevState)} className="nav-item">
+                <li
+                  onClick={() => setIsOpen((prevState) => !prevState)}
+                  className="nav-item"
+                >
                   <Link className="nav-link" to="/login">
                     Login
                   </Link>
                 </li>
-                <li onClick={() => setIsOpen(prevState => !prevState)} className="nav-item">
+                <li
+                  onClick={() => setIsOpen((prevState) => !prevState)}
+                  className="nav-item"
+                >
                   <Link className="nav-link" to="/register">
                     Register
                   </Link>
@@ -63,27 +79,42 @@ const NavBar = () => {
               </>
             ) : (
               <>
-                <li onClick={() => setIsOpen(prevState => !prevState)} className="nav-item max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 ">
+                <li
+                  onClick={() => setIsOpen((prevState) => !prevState)}
+                  className="nav-item max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 "
+                >
                   <Link className="nav-link" to="/">
                     Home
                   </Link>
                 </li>
-                <li onClick={() => setIsOpen(prevState => !prevState)} className="nav-item max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 ">
+                <li
+                  onClick={() => setIsOpen((prevState) => !prevState)}
+                  className="nav-item max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 "
+                >
                   <Link className="nav-link" to="/">
                     Vehicles
                   </Link>
                 </li>
-                <li onClick={() => setIsOpen(prevState => !prevState)} className="nav-item max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 ">
+                <li
+                  onClick={() => setIsOpen((prevState) => !prevState)}
+                  className="nav-item max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 "
+                >
                   <Link className="nav-link" to="/">
                     Brands
                   </Link>
                 </li>
-                <li onClick={() => setIsOpen(prevState => !prevState)} className="nav-item max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 ">
+                <li
+                  onClick={() => setIsOpen((prevState) => !prevState)}
+                  className="nav-item max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 "
+                >
                   <Link className="nav-link" to="/">
                     Profile
                   </Link>
                 </li>
-                <li onClick={() => setIsOpen(prevState => !prevState)} className="nav-item  max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 ">
+                <li
+                  onClick={() => setIsOpen((prevState) => !prevState)}
+                  className="nav-item  max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 "
+                >
                   <Link className="nav-link" to="/logout">
                     Logout
                   </Link>

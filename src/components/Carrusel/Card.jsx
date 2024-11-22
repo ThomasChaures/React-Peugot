@@ -17,7 +17,7 @@ const Card = ({ auto }) => {
   };
 
   return (
-    <div className="flex relative flex-col max-w-[300px]  items-start border border-black/20 rounded-xl overflow-hidden border">
+    <div className="flex relative flex-col max-w-[300px]  items-start  border-black/20 rounded-xl overflow-hidden border">
       {auto.price <= 24000 ? (
         <>
           <div className="absolute left-[20px] top-[20px] text-sm bg-green-500 text-white py-0.5 px-2 rounded-xl">
@@ -52,7 +52,7 @@ const Card = ({ auto }) => {
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="px-4">
+      <div className="px-4 w-full">
         <div className=" pb-3 border-b-[1px] border-black/20">
           <p className="text-[1.2rem] font-medium">
             {auto.model} - {auto.year}
