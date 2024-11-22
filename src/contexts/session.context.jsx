@@ -61,14 +61,14 @@ const SessionProvider = ({ children }) => {
           if (data.message) {
             onLogout();
           } else {
-            onLogin(token);
+            onLogin(token, data._id);
           }
         });
     }
   }, []);
 
   return (
-    <SessionContext.Provider value={{ token, onLogin, onLogout }}>
+    <SessionContext.Provider value={{ token, id , onLogin, onLogout }}>
       {children}
     </SessionContext.Provider>
   );

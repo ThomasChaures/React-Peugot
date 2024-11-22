@@ -43,7 +43,7 @@ const Form = ({ id, name, surname }) => {
           className="border resize-none px-2 py-2 h-14 rounded"
           id="text"
           name="text"
-          value={text} // Control the textarea value with state
+          value={text} 
           onChange={changeEvent}
         ></textarea>
       </div>

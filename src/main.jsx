@@ -129,8 +129,6 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-  // renderizamos en #root //
-  // obliga a nuestro componente para se renderice mas de una sola vez strictMode
   <StrictMode>
     <RouterProvider router={router}></RouterProvider>
   </StrictMode>
