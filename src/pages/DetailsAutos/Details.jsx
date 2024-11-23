@@ -120,6 +120,10 @@ const Details = () => {
                 {auto?.comments?.map((coment, indice) => (
                   <li key={indice}>
                     <Comentario
+                      index={indice}
+                      id={auto._id}
+                      name={user.name}
+                      surname={user.surname}
                       comentario={coment}
                       vendedor={null} // Verificación opcional en auto
                       email={email}
@@ -167,7 +171,10 @@ const Details = () => {
             </ul>
           </div>
           <div className="mt-3 flex flex-col gap-y-2">
-            <button type="submit" className="bg-blue-600 text-md poppins-regular cursor-pointer flex items-center justify-center hover:bg-blue-500 transition-all rounded text-white h-12 w-full">
+            <button
+              type="submit"
+              className="bg-blue-600 text-md poppins-regular cursor-pointer flex items-center justify-center hover:bg-blue-500 transition-all rounded text-white h-12 w-full"
+            >
               Start purchase
             </button>
             <div className="bg-blue-200/50 border border-blue-600 text-blue-600 text-md poppins-regular cursor-pointer flex items-center justify-center hover:text-white hover:bg-blue-500 transition-all rounded  h-10 w-full">

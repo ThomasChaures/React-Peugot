@@ -15,7 +15,7 @@ const Form = ({ id, name, surname }) => {
 
     if (!text.trim()) {
      
-      return;
+      return false;
     }
 
    

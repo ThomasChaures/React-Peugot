@@ -12,3 +12,16 @@ export const addComent = (comentario, id) => {
     },
   });
 };
+
+
+export const addAnswer = (comentario, id) => {
+  return call({
+    uri: `auto/${id}/comentario/${comentario.index}/responder`,
+    method: "POST",
+    body: {
+      name: comentario.name,
+      surname: comentario.surname,
+      text: comentario.text
+    },
+  });
+};

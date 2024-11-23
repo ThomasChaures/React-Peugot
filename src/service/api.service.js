@@ -6,7 +6,7 @@ export async function call({ uri, method = "GET", body = undefined }) {
           "auth-token": localStorage.getItem('token'),
         },
         method,
-        body: body ? JSON.stringify(body) : null,
+        body: JSON.stringify(body),
       });
   
       

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import "./HeroSection.css";
-import { getAutos, getSearch } from "../../service/autos.service.js";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
   const [usage, setUsage] = useState("new");
   const [brand, setBrand] = useState("");
   const [type, setType] = useState("");
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState("");
+  const navigate = useNavigate();
 
   const handleChangeBrand = (event) => setBrand(event.target.value);
   const handleChangeType = (event) => setType(event.target.value);
@@ -16,13 +17,10 @@ const HeroSection = () => {
     event.preventDefault();
     const params = new URLSearchParams();
     if (brand) params.append("brand", brand);
-    if (type) params.append("name", type);
+    if (type) params.append("type", type);
     if (price) params.append("precioMaximo", price);
     if (usage) params.append("usage", usage);
-    console.log(params.toString())
-      getSearch(`${params.toString()}`)
-      .then((data) => console.log(data))
-      .catch((error) => console.error("Error fetching data:", error));
+    navigate(`/vehicles?${params.toString()}`);
   };
 
   return (
@@ -40,7 +38,7 @@ const HeroSection = () => {
               className="flex flex-col h-full items-center justify-center gap-3"
             >
               <div className="flex gap-2">
-              <button
+                <button
                   type="button"
                   onClick={() => setUsage("")}
                   className={`text-center outline-none transition-all text-white text-md h-10 cursor-pointer w-[80px] ${
@@ -113,7 +111,7 @@ const HeroSection = () => {
                 </select>
 
                 <div className="w-[1px] h-[80%] bg-black/30"></div>
-                
+
                 <input
                   name="price"
                   className="w-[15%] text-sm  placeholder-black cursor-pointer outline-none bg-transparent px-2 rounded-full border border-white hover:border-black"

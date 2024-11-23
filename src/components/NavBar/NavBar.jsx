@@ -91,7 +91,7 @@ const NavBar = () => {
                   onClick={() => setIsOpen((prevState) => !prevState)}
                   className="nav-item max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 "
                 >
-                  <Link className="nav-link" to="/">
+                  <Link className="nav-link" to="/vehicles">
                     Vehicles
                   </Link>
                 </li>
@@ -99,7 +99,7 @@ const NavBar = () => {
                   onClick={() => setIsOpen((prevState) => !prevState)}
                   className="nav-item max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 "
                 >
-                  <Link className="nav-link" to="/">
+                  <Link className="nav-link" to="/brands">
                     Brands
                   </Link>
                 </li>
@@ -107,7 +107,7 @@ const NavBar = () => {
                   onClick={() => setIsOpen((prevState) => !prevState)}
                   className="nav-item max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 "
                 >
-                  <Link className="nav-link" to="/">
+                  <Link className="nav-link" to="/profile">
                     Profile
                   </Link>
                 </li>

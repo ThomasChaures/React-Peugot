@@ -5,7 +5,7 @@ export async function getAutos() {
 }
 
 export async function getSearch(uri) {
-  return call({ uri: `autos?precioMinimo=0&${uri}` });
+  return call({ uri: `autos?${uri}` });
 }
 
 export async function getAuto(id) {
