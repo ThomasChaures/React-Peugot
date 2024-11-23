@@ -8,6 +8,7 @@ export async function getSearch(uri) {
   return call({ uri: `autos?${uri}` });
 }
 
+
 export async function getAuto(id) {
   return call({ uri: `autos/${id}` });
 }
