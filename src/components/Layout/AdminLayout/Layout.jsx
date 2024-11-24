@@ -12,7 +12,7 @@ const Layout = () => {
 
         {/* Contenido principal */}
         <main
-          className="flex-1 bg-gray-100 poppins-regular overflow-y-auto transition-transform duration-300 lg:ml-64"
+          className="flex-1 bg-gray-900 poppins-regular overflow-y-auto transition-transform duration-300 lg:ml-64"
         >
           <Outlet />
         </main>
