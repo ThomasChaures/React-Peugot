@@ -6,7 +6,7 @@ import { register } from "../../../service/auth.service.js";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordVerify, setPasswordVerify] = useState("");
+  const [passwordConfirm, setPasswordVerify] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [errors, setErrors] = useState({});
@@ -22,7 +22,7 @@ const Register = () => {
     if (!email.includes("@")) fieldErrors.email = "Enter a valid email.";
     if (password.length < 6)
       fieldErrors.password = "Password must be at least 6 characters.";
-    if (password !== passwordVerify)
+    if (password !== passwordConfirm)
       fieldErrors.passwordVerify = "Passwords do not match.";
 
     if (Object.keys(fieldErrors).length > 0) {
@@ -34,12 +34,16 @@ const Register = () => {
       const data = await register({
         email: email,
         password: password,
-        passwordConfirm: passwordVerify,
+        passwordConfirm: passwordConfirm,
+        name: name,
+        surname: surname,
       });
+      console.log(data)
 
-      if (data.status === 201) {
+      if (data) {
         onLogin(data.usuario.token, data.usuario._id);
-        navigate("/");
+        navigate('/')
+
       } else {
         setErrors({ form: "Unable to register the user." });
       }
@@ -73,7 +77,6 @@ const Register = () => {
                   placeholder="Enter your name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-          
                 />
                 {errors.name && (
                   <p className="text-red-500 text-sm mt-1">{errors.name}</p>
@@ -95,7 +98,6 @@ const Register = () => {
                   placeholder="Enter your surname"
                   value={surname}
                   onChange={(e) => setSurname(e.target.value)}
-           
                 />
                 {errors.surname && (
                   <p className="text-red-500 text-sm mt-1">{errors.surname}</p>
@@ -141,7 +143,6 @@ const Register = () => {
                   placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-          
                 />
                 {errors.password && (
                   <p className="text-red-500 text-sm mt-1">{errors.password}</p>
@@ -161,9 +162,8 @@ const Register = () => {
                   } bg-transparent shadow-sm outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                   id="passwordVerify"
                   placeholder="Confirm your password"
-                  value={passwordVerify}
+                  value={passwordConfirm}
                   onChange={(e) => setPasswordVerify(e.target.value)}
-         
                 />
                 {errors.passwordVerify && (
                   <p className="text-red-500 text-sm mt-1">
@@ -202,4 +202,3 @@ const Register = () => {
 };
 
 export default Register;
-

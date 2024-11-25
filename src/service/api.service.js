@@ -1,4 +1,5 @@
 export async function call({ uri, method = "GET", body = undefined }) {
+  console.log(method)
     try {
       const response = await fetch(`http://localhost:3333/api/${uri}`, {
         headers: {

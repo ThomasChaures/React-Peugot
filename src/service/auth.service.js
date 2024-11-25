@@ -14,7 +14,7 @@ export async function login({ email, password }) {
 export async function register({
   email,
   password,
-  confirmPassword,
+  passwordConfirm,
   name,
   surname,
 }) {
@@ -24,7 +24,7 @@ export async function register({
     body: {
       email: email,
       password: password,
-      passwordConfirm: confirmPassword,
+      passwordConfirm: passwordConfirm,
       name: name,
       surname: surname,
       role: ''

@@ -20,7 +20,6 @@ const CreateAutos = lazy(() =>
   import("./pages/Admin/CrudAutos/CreateAutos.jsx")
 );
 const Profile = lazy(() => import("./pages/Profile/Index.jsx"));
-const EditAutos = lazy(() => import("./pages/Admin/CrudAutos/EditAutos.jsx"));
 const UpdateAutos = lazy(() =>
   import("./pages/Admin/CrudAutos/UpdateAutos.jsx")
 );
@@ -142,6 +141,46 @@ const router = createBrowserRouter([
           <ProtectedRoutesAdmin>
             <Suspense fallback={<div>Loading...</div>}>
               <IndexAutosAdmin></IndexAutosAdmin>
+            </Suspense>
+          </ProtectedRoutesAdmin>
+        ),
+      },
+      {
+        path: "/admin/vehicles/create",
+        element: (
+          <ProtectedRoutesAdmin>
+            <Suspense fallback={<div>Loading...</div>}>
+              <CreateAutos ></CreateAutos>
+            </Suspense>
+          </ProtectedRoutesAdmin>
+        ),
+      },
+      {
+        path: "/admin/vehicles/update/:auto_id",
+        element: (
+          <ProtectedRoutesAdmin>
+            <Suspense fallback={<div>Loading...</div>}>
+              <UpdateAutos ></UpdateAutos>
+            </Suspense>
+          </ProtectedRoutesAdmin>
+        ),
+      },
+      {
+        path: "/admin/vehicles/delete/:id",
+        element: (
+          <ProtectedRoutesAdmin>
+            <Suspense fallback={<div>Loading...</div>}>
+              <UpdateAutos ></UpdateAutos>
+            </Suspense>
+          </ProtectedRoutesAdmin>
+        ),
+      },
+      {
+        path: "/admin/vehicles/show/:id",
+        element: (
+          <ProtectedRoutesAdmin>
+            <Suspense fallback={<div>Loading...</div>}>
+              <UpdateAutos ></UpdateAutos>
             </Suspense>
           </ProtectedRoutesAdmin>
         ),

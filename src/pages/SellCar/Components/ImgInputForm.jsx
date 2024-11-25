@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 
-const ImgInputForm = ({ id, onFileChange }) => {
+const ImgInputForm = ({ id, onFileChange, dark }) => {
+  const darked = () => {
+      if(dark === true){
+        return `hover:border-white border-white/20`
+      }else{
+        return `hover:border-slate-950 border-slate-950/20`
+      }
+  }
   const [url, setUrl] = useState("");
   const previewImg = (event) => {
     if (!event.target.files.length) return;
@@ -16,7 +23,7 @@ const ImgInputForm = ({ id, onFileChange }) => {
     <>
       <div className="max-w-40 max-h-40 max-[870px]:max-w-full  w-full h-full">
         <label
-          className="max-w-40 max-h-40 my-4 w-full  max-[870px]:max-w-full   h-full border-2 cursor-pointer items-center justify-center transition-all rounded hover:border-slate-950 border-slate-950/20 border-dashed"
+          className={`max-w-40 max-h-40 my-4 w-full  max-[870px]:max-w-full   h-full border-2 cursor-pointer items-center justify-center transition-all rounded ${darked} border-dashed`}
           htmlFor={`img${id}`}
         >
           {url ? (

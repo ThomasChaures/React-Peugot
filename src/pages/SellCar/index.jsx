@@ -248,7 +248,7 @@ const index = () => {
         });
       }
 
-      console.log(formData)
+      console.log(formData);
       postAuto(formData)
         .then((data) => console.log(data))
         .catch((err) => console.log(err));
@@ -283,9 +283,21 @@ const index = () => {
             <h3 className="text-lg text-black">Uploads photos</h3>
             <div className="flex flex-col mb-10  w-full ">
               <div className="flex max-[870px]:flex-col w-full  max-[870px]:gap-y-2 gap-x-10 xl:gap-x-5">
-                <ImgInputForm id="1" onFileChange={handleFileChange} />
-                <ImgInputForm id="2" onFileChange={handleFileChange} />
-                <ImgInputForm id="3" onFileChange={handleFileChange} />
+                <ImgInputForm
+                  id="1"
+                  onFileChange={handleFileChange}
+                  dark={false}
+                />
+                <ImgInputForm
+                  id="2"
+                  onFileChange={handleFileChange}
+                  dark={false}
+                />
+                <ImgInputForm
+                  id="3"
+                  onFileChange={handleFileChange}
+                  dark={false}
+                />
               </div>
 
               {errors.img && <Error>{errors.img}</Error>}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getAutos } from '../../../service/autos.service'
+import { Link } from 'react-router-dom'
 
 const TablaAutos = () => {
   const [autos, setAutos] = useState([])
@@ -67,7 +68,7 @@ const TablaAutos = () => {
                     </td>
                     <td className="px-6 py-4 flex flex-col gap-y-2 text-black text-sm ">
                       <button className="bg-indigo-500 hover:bg-indigo-300 py-1 rounded px-1 transition duration-300">Show</button>
-                      <button className="bg-green-500 hover:bg-green-300 py-1 rounded px-1 transition duration-300">Edit</button>
+                      <Link to={`/admin/vehicles/update/${auto._id}`} className="bg-green-500 hover:bg-green-300 py-1 rounded px-1 transition duration-300">Edit</Link>
                       <button className="bg-red-600 hover:bg-red-300 py-1 rounded px-1 transition duration-300">Delete</button>
                     </td>
                   </tr>
