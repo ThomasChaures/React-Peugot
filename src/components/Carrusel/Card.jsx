@@ -47,7 +47,7 @@ const Card = ({ auto }) => {
 
       <div className="mb-4 h-[250px] w-full">
         <img
-          src={auto.imga || placeholder}
+          src={auto.img1 ? `http://localhost:3333/uploads/${auto.img1}` : placeholder }
           alt={auto.model || "Auto"}
           className="w-full h-full object-cover"
         />

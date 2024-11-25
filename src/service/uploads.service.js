@@ -1,4 +1,8 @@
-import { call } from "./api.service";
-export const postUploads = async (fileData) => {
-  return call({ uri: `uploads`, method: "POST", body: fileData });
-};
+export async function postUploads(files) {
+  const response = await fetch( "http://localhost:3333/upload", {
+    method: "POST",
+    body: files
+  } )
+  return response.json() 
+
+}

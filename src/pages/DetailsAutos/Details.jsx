@@ -51,6 +51,13 @@ const Details = () => {
       .then((data) => {
         console.log("auto", data);
         setAuto(data);
+        if(data.img1 || data.img2 || data.img3){
+          console.log(data.img3)
+          setMainImg(`http://localhost:3333/uploads/${data.img1}`)
+          setImg1(`http://localhost:3333/uploads/${data.img1}`)
+          setImg2(`http://localhost:3333/uploads/${data.img2}`)
+          setImg3(`http://localhost:3333/uploads/${data.img3}`)
+        }
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
@@ -60,7 +67,7 @@ const Details = () => {
       <section className="mt-40 flex gap-4 items-start max-w-[1360px] mx-auto">
         <div className="flex-col flex  items-start">
           <div className="flex  gap-4 items-end">
-            <div className="h-[497px] relative order-2 w-full max-w-[800px]">
+            <div className="h-[497px] relative order-2 w-[800px]">
               <img
                 className="w-full h-full object-cover"
                 src={mainImg}
@@ -71,7 +78,7 @@ const Details = () => {
             <div className="max-w-[200px] flex flex-col order-1  gap-2">
               <div
                 onClick={() => changeImg(i1)}
-                className="max-w-[140px] hover:opacity-100 transition-opacity  cursor-pointer  max-h-[140px] opacity-70 border border-black"
+                className="max-w-[140px] hover:opacity-100 transition-opacity  cursor-pointer  overflow-hidden h-[100px] opacity-70 border border-black"
               >
                 <img
                   className="w-full h-full object-contain"
@@ -81,7 +88,7 @@ const Details = () => {
               </div>
               <div
                 onClick={() => changeImg(i2)}
-                className="max-w-[140px] hover:opacity-100 transition-opacity  cursor-pointer  max-h-[140px] opacity-70 border border-black"
+                className="max-w-[140px] hover:opacity-100 transition-opacity  cursor-pointer overflow-hidden  max-h-[100px] opacity-70 border border-black"
               >
                 <img
                   className="w-full h-full object-contain"
@@ -91,7 +98,7 @@ const Details = () => {
               </div>
               <div
                 onClick={() => changeImg(i3)}
-                className="max-w-[140px] cursor-pointer hover:opacity-100 transition-opacity   max-h-[140px] opacity-70 border border-black"
+                className="max-w-[140px] cursor-pointer hover:opacity-100 transition-opacity  overflow-hidden  h-[100px] opacity-70 border border-black"
               >
                 <img
                   className="w-full h-full object-contain"
@@ -101,7 +108,7 @@ const Details = () => {
               </div>
             </div>
           </div>
-          <div className="border-t mt-[20px] pt-3 pb-3">
+          <div className="border-t w-full mt-[20px] pt-3 pb-3">
             <h2 className="text-lg pb-2  poppins-medium">Description</h2>
             <p className="text-[15px] text-black/70  poppins-medium">
               {auto.description}
@@ -125,7 +132,7 @@ const Details = () => {
                       name={user.name}
                       surname={user.surname}
                       comentario={coment}
-                      vendedor={null} // Verificación opcional en auto
+                      vendedor={null}
                       email={email}
                       role={role}
                     />
