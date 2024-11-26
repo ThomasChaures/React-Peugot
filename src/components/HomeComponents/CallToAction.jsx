@@ -10,7 +10,7 @@ const CallToAction = () => {
 
                 <p className='w-[70%] text-white/100'>Find the perfect car for your needs. Explore a wide range of options and drive away happy.</p>
 
-                <Link className='button h-[45px] flex hover:bg-white hover:border-2 transition-all  hover:border-blue-700 items-center justify-center bg-blue-700 text-white rounded-xl w-[190px]'>Get Started<i className="fa-solid text-sm ml-2 fa-location-arrow"></i></Link>
+                <Link to='/vehicles' className='button h-[45px] flex hover:bg-white hover:border-2 transition-all  hover:border-blue-700 items-center justify-center bg-blue-700 text-white rounded-xl w-[190px]'>Get Started<i className="fa-solid text-sm ml-2 fa-location-arrow"></i></Link>
         </div>
 
         <div className='sell bg-slate-200/60  w-1/2 h-[340px] px-10 py-4 flex justify-center flex-col gap-4 rounded-xl'>
@@ -18,7 +18,7 @@ const CallToAction = () => {
 
                 <p className='w-[70%]'>Sell your car quickly and easily. Reach thousands of potential buyers in no time.</p>
 
-                <Link className='button h-[45px] hover:bg-white hover:border-2 text-white transition-all  hover:text-slate-950 hover:border-slate-950 flex items-center justify-center bg-slate-950  rounded-xl w-[190px]'>Get Started<i className="fa-solid ml-2 text-sm fa-location-arrow"></i></Link>
+                <Link to='/vehicle/sell' className='button h-[45px] hover:bg-white hover:border-2 text-white transition-all  hover:text-slate-950 hover:border-slate-950 flex items-center justify-center bg-slate-950  rounded-xl w-[190px]'>Get Started<i className="fa-solid ml-2 text-sm fa-location-arrow"></i></Link>
         </div>
     </section>
     </>

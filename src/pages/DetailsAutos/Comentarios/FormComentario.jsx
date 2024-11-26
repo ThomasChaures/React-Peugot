@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { addAnswer } from "../../../service/comentarios.service";
 
-const FormComentario = ({ id, index, name, surname }) => {
+const FormComentario = ({ id, index, name, surname, sub }) => {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false); // Estado para manejo de carga
   const [error, setError] = useState(null); // Estado para manejar errores
@@ -30,6 +30,7 @@ const FormComentario = ({ id, index, name, surname }) => {
       setError(null);
       await addAnswer(answer, id);
       setText(""); // Resetea el textarea después de enviar la respuesta
+      sub(false)
     } catch (error) {
       setError("Hubo un problema al enviar la respuesta");
       console.error("Error al enviar la respuesta:", error);

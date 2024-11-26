@@ -10,7 +10,7 @@ const CarsSection = ({autos}) => {
           Explore All Vehicles
         </h2>
 
-        <Link className="text-sm transition-all hover:text-blue-500">See all vehicles <i className="fa-solid text-sm fa-location-arrow"></i></Link>
+        <Link to="/vehicles" className="text-sm transition-all hover:text-blue-500">See all vehicles <i className="fa-solid text-sm fa-location-arrow"></i></Link>
         
         </div>
     <div>

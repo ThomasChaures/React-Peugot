@@ -24,7 +24,7 @@ const TablaAutosPending = () => {
     <div className="p-6 pt-20  min-h-screen text-gray-300">
       <div className="max-w-10xl mx-auto bg-gray-800 shadow-lg rounded-lg overflow-hidden">
         <div className="flex items-center justify-between p-5 border-b border-gray-700">
-          <h1 className="text-2xl font-bold text-white">Vehicle</h1>
+          <h1 className="text-2xl font-bold text-white">Pending Vehicles</h1>
          <div className='flex gap-x-2'>
           <Link to='/admin/vehicles/' className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-500 transition duration-300">
             Back to list

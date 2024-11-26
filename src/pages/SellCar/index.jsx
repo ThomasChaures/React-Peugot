@@ -7,6 +7,7 @@ import { getMarcas } from "../../service/marcas.service";
 import { useNavigate } from "react-router-dom";
 import { postUploads } from "../../service/uploads.service";
 import Error from "../../components/Error/Error.jsx";
+import { getUserData } from "../../service/auth.service.js";
 
 const index = () => {
   const navigate = useNavigate();
@@ -15,18 +16,8 @@ const index = () => {
   const [brands, setBrands] = useState([]);
   const [types, setTypes] = useState([]);
   const [files, setFiles] = useState({});
-  const [flag, setFlag] = useState(false);
-  const [errors, setErrors] = useState({
-    img: "",
-    brand: "",
-    model: "",
-    type: "",
-    price: null,
-    horsepower: null,
-    engine: "",
-    description: "",
-    usage: "",
-  });
+  const [errors, setErrors] = useState({});
+  const [user, setUser] = useState({})
   const [formData, setFormData] = useState({
     img1: "",
     img2: "",
@@ -39,14 +30,15 @@ const index = () => {
     engine: "",
     description: "",
     usage: "",
+    year: "",
     vendedor: {
-      user_id: `${id}`,
-      name: "Thomas",
-      surname: "Chaures",
-      email: "admin@gmail.com",
-    },
+      name: user.name,
+      surname: user.surname,
+      email: user.email,
+    }
   });
 
+ 
   const handleFileChange = (id, file) => {
     setFiles((prevFiles) => ({ ...prevFiles, [`img${id}`]: file }));
     setFormData((prev) => ({
@@ -56,210 +48,110 @@ const index = () => {
   };
 
   const changeInputForm = (name, value) => {
-    console.log(id);
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  const handleSubmit = (e) => {
+  // Función para validar campos
+  const validateField = (name, value) => {
+    let error = "";
+
+    if ((name === "img1" || name === "img2" || name === "img3") && (value === '')) {
+      error = "You must upload 3 images.";
+    } else if (!value) {
+      error = `You must provide a valid ${name}.`;
+    } else if (name === "price" && value <= 0) {
+      error = "Price must be greater than 0.";
+    } else if (name === "horsepower" && value <= 0) {
+      error = "Horsepower must be a positive number.";
+    } 
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
+    }));
+
+    return error === ""; 
+  };
+
+  // Valida todo el formulario
+  const validateForm = () => {
+    let isValid = true;
+
+    Object.entries(formData).forEach(([key, value]) => {
+      const valid = validateField(key, value);
+      if (!valid) isValid = false;
+    });
+
+    return isValid;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form data:", formData);
-    console.log("files", files);
-
-    if (!formData.img1 || !formData.img2 || !formData.img3) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        img: "You must upload 3 images.",
-      }));
-      setFlag(false);
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        img: null,
-      }));
-      setFlag(true);
-    }
-
-    if (!formData.brand) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        brand: "You must select a brand.",
-      }));
-      setFlag(false);
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        brand: "",
-      }));
-      setFlag(true);
-    }
-
-    if (!formData.type) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        type: "You must select a type.",
-      }));
-      setFlag(false);
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        type: "",
-      }));
-      setFlag(true);
-    }
-
-    if (!formData.model) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        model: "You must put a model.",
-      }));
-      setFlag(false);
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        model: "",
-      }));
-      setFlag(true);
-    }
-
-    if (!formData.usage) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        usage: "You must select the usage.",
-      }));
-      setFlag(false);
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        usage: "",
-      }));
-      setFlag(true);
-    }
-
-    if (!formData.price) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        price: "You must put a price.",
-      }));
-      setFlag(false);
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        price: "",
-      }));
-      setFlag(true);
-    }
-
-    if (!formData.horsepower) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        horsepower: "You must put a horsepower.",
-      }));
-      setFlag(false);
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        horsepower: "",
-      }));
-      setFlag(true);
-    }
-
-    if (!formData.year) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        year: "You must put a year.",
-      }));
-      setFlag(false);
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        year: "",
-      }));
-      setFlag(true);
-    }
-
-    if (!formData.engine) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        engine: "You must put a engine.",
-      }));
-      setFlag(false);
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        engine: "",
-      }));
-      setFlag(true);
-    }
-
-    if (!formData.description) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        description: "You must put a description.",
-      }));
-      setFlag(false);
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        description: "",
-      }));
-      setFlag(true);
-    }
-
-    if (flag) {
-      if (formData.img1) {
-        const formFile = new FormData();
-        console.log(files.img1);
-        const img = files.img1;
-        formFile.append("file", img);
-        postUploads(formFile).then((data) => {
+  
+    if (validateForm()) {
+      console.log("Form is valid, submitting...");
+  
+      const uploadPromises = ["img1", "img2", "img3"].map((imgKey) => {
+        if (formData[imgKey]) {
+          const formFile = new FormData();
+          const img = files[imgKey];
+          formFile.append("file", img);
+  
+          return postUploads(formFile).then((data) => ({
+            key: imgKey,
+            value: data.file,
+          }));
+        }
+        return null;
+      });
+  
+      // Esperar todas las promesas
+      const uploadedFiles = await Promise.all(uploadPromises);
+  
+      // Actualizar formData con las URLs de las imágenes
+      uploadedFiles.forEach((file) => {
+        if (file) {
           setFormData((prev) => ({
             ...prev,
-            img1: data.file,
+            [file.key]: file.value,
           }));
-        });
-      }
-
-      if (formData.img2) {
-        const formFile = new FormData();
-        console.log(files.img2);
-        const img = files.img2;
-        formFile.append("file", img);
-        postUploads(formFile).then((data) => {
-          setFormData((prev) => ({
-            ...prev,
-            img2: data.file,
-          }));
-        });
-      }
-
-      if (formData.img3) {
-        const formFile = new FormData();
-        console.log(files.img3);
-        const img = files.img3;
-        formFile.append("file", img);
-        postUploads(formFile).then((data) => {
-          setFormData((prev) => ({
-            ...prev,
-            img3: data.file,
-          }));
-        });
-      }
-
-      console.log(formData);
+        }
+      });
+  
+      // Enviar formulario
       postAuto(formData)
-        .then((data) => console.log(data))
-        .catch((err) => console.log(err));
+        .then((data) => {
+          console.log("Auto created:", data);
+         
+        })
+        .catch((err) => console.log("Error creating auto:", err));
     }
   };
+  
 
   useEffect(() => {
     console.log(id);
+    getUserData(id).then(data => setUser(data))
     getTipos().then((data) => setTypes(data));
     getMarcas().then((data) => setBrands(data));
   }, []);
+
+  useEffect(() => {
+    if (user?.name) {
+      setFormData((prev) => ({
+        ...prev,
+        vendedor: {
+          name: user.name,
+          surname: user.surname,
+          email: user.email,
+        },
+      }));
+    }
+  }, [user]);
+  
 
   return (
     <section className="mt-40 container max-[870px]:px-10 max-[1270px]:px-10 px-20 max-w-[1360px] max-[1270px]:max-w-[1000px] mx-auto">
@@ -275,7 +167,7 @@ const index = () => {
 
       <div className="mt-10 w-full rounded">
         <form
-          enctype="multipart/form-data"
+          encType="multipart/form-data"
           onSubmit={handleSubmit}
           className="flex flex-wrap max-w-[1200px] w-full gap-x-20 xl:gap-x-10 max-[870px]:flex-col xl:flex-nowrap"
         >
@@ -300,7 +192,11 @@ const index = () => {
                 />
               </div>
 
-              {errors.img && <Error>{errors.img}</Error>}
+              {(errors.img1)&& (
+                <div className="mt-10">
+                  <Error>You must upload 3 images.</Error>
+                </div>
+              )}
             </div>
 
             {/* Primer bloque */}

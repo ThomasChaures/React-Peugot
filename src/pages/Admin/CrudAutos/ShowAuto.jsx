@@ -1,26 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { getAuto } from "../../../service/autos.service";
-import { useNavigate, useParams } from "react-router-dom";
-import { patchAuto } from "../../../service/autos.service";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
-const Check = () => {
+
+
+const ShowAuto = () => {
   const navigate = useNavigate()
   const { id } = useParams();
 
   const [auto, setAuto] = useState({});
-
-  const handler = async (st) => {
-    const { _id, ...nuevoAuto } = auto;
-
-    nuevoAuto.status = st;
-
-    try {
-      await patchAuto(nuevoAuto, id).then((data) => console.log(data));
-      navigate('/admin/vehicles')
-    } catch (error) {
-      console.error("Error updating status:", error);
-    }
-  };
 
   useEffect(() => {
     console.log(id);
@@ -31,7 +19,15 @@ const Check = () => {
   }, []);
   return (
     <section className=" px-20 max-w-[600px] mt-[45px]">
-      <h2 className="text-3xl text-white mb-4 font-medium">Check Vehicle</h2>
+      <h2 className="text-3xl text-white mb-4 font-medium">Show Vehicle</h2>
+      <div className="text-white flex  w-full justify-between  gap-x-10 py-4">
+        <Link to={'/admin/vehicles'}
+          className="bg-blue-500 px-2 py-2 text-center rounded w-full block"
+        >
+          Back to list
+        </Link>
+   
+      </div>
       <p className="text-white text-xl py-4">
         {auto.model} - {auto.year}
       </p>
@@ -106,26 +102,9 @@ const Check = () => {
           <span>{auto.description}</span>
         </p>
       </div>
-      <div className="text-white flex  w-full justify-between  gap-x-10 py-4">
-        <button
-          onClick={() => {
-            handler("decline");
-          }}
-          className="bg-red-700 px-2 py-2 text-center rounded w-full block"
-        >
-          Decline
-        </button>
-        <button
-          onClick={() => {
-            handler("for sale");
-          }}
-          className="bg-green-700 px-2 py-2 text-center  rounded w-full block"
-        >
-          Accept
-        </button>
-      </div>
+   
     </section>
   );
 };
 
-export default Check;
+export default ShowAuto;

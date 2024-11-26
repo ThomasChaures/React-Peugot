@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./HeroSection.css";
 import { useNavigate } from "react-router-dom";
+import { getMarcas } from "../../service/marcas.service";
+import { getTipos } from "../../service/tipos.service";
 
 const HeroSection = () => {
   const [usage, setUsage] = useState("new");
   const [brand, setBrand] = useState("");
   const [type, setType] = useState("");
   const [price, setPrice] = useState("");
+
+
+  const [types, setTypes] = useState([])
+  const [brands, setBrands] = useState([])
+
   const navigate = useNavigate();
 
   const handleChangeBrand = (event) => setBrand(event.target.value);
@@ -22,6 +29,17 @@ const HeroSection = () => {
     if (usage) params.append("usage", usage);
     navigate(`/vehicles?${params.toString()}`);
   };
+
+
+  useEffect(() => {
+      getMarcas()
+      .then(data => setBrands(data))
+      .catch((error) => console.log(error))
+
+      getTipos()
+      .then(data => setTypes(data))
+      .catch((error) => console.log(error))
+  }, [])
 
   return (
     <section className="h-screen relative background-hero">
@@ -83,12 +101,14 @@ const HeroSection = () => {
                   <option disabled value="">
                     Select Brand
                   </option>
-                  <option value="Audi">Audi</option>
-                  <option value="BMW">BMW</option>
-                  <option value="Chevrolet">Chevrolet</option>
-                  <option value="Ford">Ford</option>
-                  <option value="Peugeot">Peugeot</option>
-                  <option value="Volkswagen">Volkswagen</option>
+                  {
+                    brands.map((marca, index) => {
+                      return (
+                        <option value={marca.marca}>{marca.marca}</option>
+                    
+                      )
+                    })
+                  }
                 </select>
 
                 <div className="w-[1px] h-[80%] bg-black/30"></div>
@@ -102,12 +122,14 @@ const HeroSection = () => {
                   <option disabled value="">
                     Select Type
                   </option>
-                  <option value="Audi">Audi</option>
-                  <option value="BMW">BMW</option>
-                  <option value="Chevrolet">Chevrolet</option>
-                  <option value="Ford">Ford</option>
-                  <option value="Peugeot">Peugeot</option>
-                  <option value="Volkswagen">Volkswagen</option>
+                  {
+                    types.map((tipo, index) => {
+                      return (
+                        <option value={tipo.tipo}>{tipo.tipo}</option>
+                    
+                      )
+                    })
+                  }
                 </select>
 
                 <div className="w-[1px] h-[80%] bg-black/30"></div>

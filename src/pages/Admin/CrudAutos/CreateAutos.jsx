@@ -15,18 +15,7 @@ const CreateAutos = () => {
   const [brands, setBrands] = useState([]);
   const [types, setTypes] = useState([]);
   const [files, setFiles] = useState({});
-  const [flag, setFlag] = useState(false);
-  const [errors, setErrors] = useState({
-    img: "",
-    brand: "",
-    model: "",
-    type: "",
-    price: null,
-    horsepower: null,
-    engine: "",
-    description: "",
-    usage: "",
-  });
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     img1: "",
     img2: "",
@@ -39,8 +28,10 @@ const CreateAutos = () => {
     engine: "",
     description: "",
     usage: "",
+    year: "",
   });
 
+ 
   const handleFileChange = (id, file) => {
     setFiles((prevFiles) => ({ ...prevFiles, [`img${id}`]: file }));
     setFormData((prev) => ({
@@ -50,202 +41,74 @@ const CreateAutos = () => {
   };
 
   const changeInputForm = (name, value) => {
-    console.log(id);
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
+  // Función para validar campos
+  const validateField = (name, value) => {
+    let error = "";
+
+    if ((name === "img1" || name === "img2" || name === "img3") && (value === '')) {
+      error = "You must upload 3 images.";
+    } else if (!value) {
+      error = `You must provide a valid ${name}.`;
+    } else if (name === "price" && value <= 0) {
+      error = "Price must be greater than 0.";
+    } else if (name === "horsepower" && value <= 0) {
+      error = "Horsepower must be a positive number.";
+    } 
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
+    }));
+
+    return error === ""; 
+  };
+
+  // Valida todo el formulario
+  const validateForm = () => {
+    let isValid = true;
+
+    Object.entries(formData).forEach(([key, value]) => {
+      const valid = validateField(key, value);
+      if (!valid) isValid = false;
+    });
+
+    return isValid;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form data:", formData);
-    console.log("files", files);
 
-    if (!formData.img1 || !formData.img2 || !formData.img3) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        img: "You must upload 3 images.",
-      }));
-      setFlag(false);
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        img: null,
-      }));
-      setFlag(true);
-    }
+    if (validateForm()) {
+      console.log("Form is valid, submitting...");
 
-    if (!formData.brand) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        brand: "You must select a brand.",
-      }));
-      setFlag(false);
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        brand: "",
-      }));
-      setFlag(true);
-    }
+      // Manejo de imágenes
+      ["img1", "img2", "img3"].forEach((imgKey) => {
+        if (formData[imgKey]) {
+          const formFile = new FormData();
+          const img = files[imgKey];
+          formFile.append("file", img);
+          postUploads(formFile).then((data) => {
+            setFormData((prev) => ({
+              ...prev,
+              [imgKey]: data.file,
+            }));
+          });
+        }
+      });
 
-    if (!formData.type) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        type: "You must select a type.",
-      }));
-      setFlag(false);
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        type: "",
-      }));
-      setFlag(true);
-    }
-
-    if (!formData.model) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        model: "You must put a model.",
-      }));
-      setFlag(false);
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        model: "",
-      }));
-      setFlag(true);
-    }
-
-    if (!formData.usage) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        usage: "You must select the usage.",
-      }));
-      setFlag(false);
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        usage: "",
-      }));
-      setFlag(true);
-    }
-
-    if (!formData.price) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        price: "You must put a price.",
-      }));
-      setFlag(false);
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        price: "",
-      }));
-      setFlag(true);
-    }
-
-    if (!formData.horsepower) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        horsepower: "You must put a horsepower.",
-      }));
-      setFlag(false);
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        horsepower: "",
-      }));
-      setFlag(true);
-    }
-
-    if (!formData.year) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        year: "You must put a year.",
-      }));
-      setFlag(false);
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        year: "",
-      }));
-      setFlag(true);
-    }
-
-    if (!formData.engine) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        engine: "You must put a engine.",
-      }));
-      setFlag(false);
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        engine: "",
-      }));
-      setFlag(true);
-    }
-
-    if (!formData.description) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        description: "You must put a description.",
-      }));
-      setFlag(false);
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        description: "",
-      }));
-      setFlag(true);
-    }
-
-    if (flag) {
-      if (formData.img1) {
-        const formFile = new FormData();
-        console.log(files.img1);
-        const img = files.img1;
-        formFile.append("file", img);
-        postUploads(formFile).then((data) => {
-          setFormData((prev) => ({
-            ...prev,
-            img1: data.file,
-          }));
-        });
-      }
-
-      if (formData.img2) {
-        const formFile = new FormData();
-        console.log(files.img2);
-        const img = files.img2;
-        formFile.append("file", img);
-        postUploads(formFile).then((data) => {
-          setFormData((prev) => ({
-            ...prev,
-            img2: data.file,
-          }));
-        });
-      }
-
-      if (formData.img3) {
-        const formFile = new FormData();
-        console.log(files.img3);
-        const img = files.img3;
-        formFile.append("file", img);
-        postUploads(formFile).then((data) => {
-          setFormData((prev) => ({
-            ...prev,
-            img3: data.file,
-          }));
-        });
-      }
-
-      console.log(formData)
+      // Envío del formulario
       postAuto(formData)
-        .then((data) => console.log(data))
-        .catch((err) => console.log(err));
+        .then((data) => {
+          console.log("Auto created:", data);
+          navigate("/admin/vehicles");
+        })
+        .catch((err) => console.log("Error creating auto:", err));
     }
   };
 
@@ -254,7 +117,6 @@ const CreateAutos = () => {
     getTipos().then((data) => setTypes(data));
     getMarcas().then((data) => setBrands(data));
   }, []);
-
   return (
     <section className="mt-[45px] container max-[870px]:px-10  max-[1270px]:px-10 px-20 max-w-[1360px] max-[1270px]:max-w-[1000px] mx-auto">
       <div>
@@ -271,18 +133,36 @@ const CreateAutos = () => {
             <h3 className="text-lg text-white">Uploads photos</h3>
             <div className="flex flex-col mb-10  w-full ">
               <div className="flex max-[870px]:flex-col w-full  max-[870px]:gap-y-2 gap-x-10 xl:gap-x-5">
-                <ImgInputForm id="1" onFileChange={handleFileChange} dark={true} />
-                <ImgInputForm id="2" onFileChange={handleFileChange} dark={true} />
-                <ImgInputForm id="3" onFileChange={handleFileChange} dark={true}  />
+                <ImgInputForm
+                  id="1"
+                  onFileChange={handleFileChange}
+                  dark={true}
+                />
+                <ImgInputForm
+                  id="2"
+                  onFileChange={handleFileChange}
+                  dark={true}
+                />
+                <ImgInputForm
+                  id="3"
+                  onFileChange={handleFileChange}
+                  dark={true}
+                />
               </div>
 
-              {errors.img && <div className="mt-10"><Error>{errors.img}</Error></div>}
+              {(errors.img1)&& (
+                <div className="mt-10">
+                  <Error>You must upload 3 images.</Error>
+                </div>
+              )}
             </div>
 
             {/* Primer bloque */}
             <div className="flex gap-x-10 items-start max-[870px]:flex-wrap max-[870px]:gap-y-5 justify-between xl:flex-nowrap xl:gap-x-5">
               <div className="flex gap-y-2 flex-col w-full">
-                <label className="text-white" htmlFor="brand">Car Brand</label>
+                <label className="text-white" htmlFor="brand">
+                  Car Brand
+                </label>
                 <select
                   className="border border-black rounded py-1"
                   name="brand"
@@ -303,7 +183,9 @@ const CreateAutos = () => {
               </div>
 
               <div className="flex gap-y-2 flex-col w-full">
-                <label className="text-white" htmlFor="model">Car Model</label>
+                <label className="text-white" htmlFor="model">
+                  Car Model
+                </label>
                 <input
                   type="text"
                   className="border px-2 border-black rounded py-1"
@@ -319,7 +201,9 @@ const CreateAutos = () => {
             {/* Segundo bloque */}
             <div className="flex my-4 items-start max-[870px]:flex-wrap max-[870px]:gap-y-5 justify-between gap-x-10 xl:gap-x-5 w-full">
               <div className="flex gap-y-2 flex-col w-full">
-                <label className="text-white" htmlFor="type">Car Type</label>
+                <label className="text-white" htmlFor="type">
+                  Car Type
+                </label>
                 <select
                   className="border border-black rounded py-1"
                   name="type"
@@ -340,7 +224,9 @@ const CreateAutos = () => {
               </div>
 
               <div className="flex gap-y-2 flex-col w-full">
-                <label className="text-white"  htmlFor="usage">Usage</label>
+                <label className="text-white" htmlFor="usage">
+                  Usage
+                </label>
                 <select
                   className="border border-black rounded py-1"
                   name="usage"
@@ -361,7 +247,9 @@ const CreateAutos = () => {
             {/* Tercer bloque */}
             <div className="flex items-start max-[870px]:flex-wrap max-[870px]:gap-y-5 my-4 justify-between gap-x-10 xl:gap-x-5 w-full">
               <div className="flex gap-y-2 flex-col w-full">
-                <label className="text-white" htmlFor="engine">Engine</label>
+                <label className="text-white" htmlFor="engine">
+                  Engine
+                </label>
                 <input
                   className="border px-2 border-black rounded py-1"
                   type="text"
@@ -374,7 +262,9 @@ const CreateAutos = () => {
               </div>
 
               <div className="flex gap-y-2 flex-col w-full">
-                <label className="text-white" htmlFor="horsepower">Horsepower</label>
+                <label className="text-white" htmlFor="horsepower">
+                  Horsepower
+                </label>
                 <input
                   className="border px-2 border-black rounded py-1"
                   type="number"
@@ -392,7 +282,9 @@ const CreateAutos = () => {
             {/* Cuarto bloque */}
             <div className="flex items-start my-4 max-[870px]:flex-wrap max-[870px]:gap-y-5 justify-between gap-x-10 xl:gap-x-5 w-full">
               <div className="flex gap-y-2 flex-col w-full">
-                <label className="text-white" htmlFor="year">Year</label>
+                <label className="text-white" htmlFor="year">
+                  Year
+                </label>
                 <input
                   className="border px-2 border-black rounded py-1"
                   type="number"
@@ -405,7 +297,9 @@ const CreateAutos = () => {
               </div>
 
               <div className="flex gap-y-2 flex-col w-full">
-                <label className="text-white" htmlFor="price">Price</label>
+                <label className="text-white" htmlFor="price">
+                  Price
+                </label>
                 <input
                   className="border px-2 border-black rounded py-1"
                   type="text"
@@ -421,7 +315,9 @@ const CreateAutos = () => {
             {/* Quinto bloque */}
             <div className="flex flex-col my-4 gap-y-5 w-full">
               <div className="flex gap-y-2 flex-col w-full">
-                <label className="text-white" htmlFor="description">Description</label>
+                <label className="text-white" htmlFor="description">
+                  Description
+                </label>
                 <textarea
                   className="border resize-none px-2 h-40 border-black rounded py-1"
                   name="description"
@@ -436,14 +332,12 @@ const CreateAutos = () => {
             </div>
           </div>
 
- 
-            <button
-              className="bg-blue-600 max-w-[720px] my-5 text-md poppins-regular cursor-pointer flex items-center justify-center hover:bg-blue-500 transition-all rounded text-white h-12 w-full"
-              type="submit"
-            >
-              Confirm
-            </button>
-            
+          <button
+            className="bg-blue-600 max-w-[720px] my-5 text-md poppins-regular cursor-pointer flex items-center justify-center hover:bg-blue-500 transition-all rounded text-white h-12 w-full"
+            type="submit"
+          >
+            Confirm
+          </button>
         </form>
       </div>
     </section>

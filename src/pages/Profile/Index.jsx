@@ -114,7 +114,7 @@ const Index = () => {
                     ))}
                   </ul>
                 ) : (
-                  <p>No autos available</p>
+                  <p>No vehicles available</p>
                 )}
               </div>
             </div>

@@ -20,6 +20,7 @@ const Comentario = ({index, id, name, surname, comentario, email, vendedor, role
       {flag === true && (
         <div className="bg-slate-950/40 fixed z-10 top-0 left-0 w-full h-screen">
           <div className="absolute bg-slate-950 px-4 py-4 rounded max-w-[500px] w-full top-[30%] left-1/2 translate-x-[-50%]">
+          <div onClick={() => (setFlag(false))} className="absolute top-[-10px] right-[-10px] bg-white w-8 h-8 flex items-center justify-center cursor-pointer hover:!bg-red-500 hover:text-white transition-all rounded-full"><i className="fa-solid fa-x"></i></div>
             <div className=" border border-gray-300 rounded shadow-md mb-4">
               <div className="bg-white rounded  p-4">
                 <div>
@@ -32,7 +33,7 @@ const Comentario = ({index, id, name, surname, comentario, email, vendedor, role
                 </div>
               </div>
             </div>
-            <FormComentario id={id} index={index} name={name} surname={surname} ></FormComentario>
+            <FormComentario id={id} index={index} name={name} surname={surname} sub={setFlag} ></FormComentario>
           </div>
         </div>
       )}
@@ -70,9 +71,10 @@ const Comentario = ({index, id, name, surname, comentario, email, vendedor, role
                   className="p-2 border border-gray-300 rounded-md bg-white shadow-sm"
                 >
                   <p className="text-sm font-semibold text-gray-800">
-                    {answer?.name || "Anonymous"}{" "}
+                    {answer?.name || "Anonymous"} {answer?.surname}
                     {/* Mostrar 'Anonymous' si no hay nombre */}
                   </p>
+                  
                   <p className="text-sm text-gray-600">
                     {answer?.text || "No answer text available"}
                   </p>

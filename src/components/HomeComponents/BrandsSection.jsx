@@ -17,7 +17,7 @@ const BrandsSection = () => {
           Explore Our Brands
         </h2>
 
-        <Link className="text-sm transition-all hover:text-blue-500">See all brands <i className="fa-solid text-sm fa-location-arrow"></i></Link>
+        <Link to={`/brands`} className="text-sm transition-all hover:text-blue-500">See all brands <i className="fa-solid text-sm fa-location-arrow"></i></Link>
         
         </div>
 
@@ -46,7 +46,7 @@ const BrandsSection = () => {
                     alt={car.name}
                   />
                 </div>
-                <p className="text-md font-semibold font-semibold text-gray-700">
+                <p className="text-md font-semibold text-gray-700">
                   {car.name}
                 </p>
               </li>

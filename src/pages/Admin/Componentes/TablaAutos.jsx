@@ -61,7 +61,7 @@ const TablaAutos = () => {
                     <td className="px-6 py-4 text-sm text-gray-400">{auto.brand}</td>
                     <td className="px-6 py-4">
                       <img
-                        src="/placeholder.svg?height=48&width=48"
+                        src={`http://localhost:3333/uploads/${auto.img1}`}
                         alt={auto.model}
                         className="w-12 h-12 rounded-full object-cover border border-gray-700"
                       />
@@ -69,12 +69,12 @@ const TablaAutos = () => {
                     <td className="px-6 py-4 text-sm text-gray-400">${auto.price.toLocaleString()}</td>
                     <td className="px-6 py-4 text-sm text-gray-400">{auto.status}</td>
                     <td className="px-6 py-4 text-sm text-gray-400">
-                      {!auto.vendedor ? "Official Car" : auto.vendedor.email}
+                      {!auto.vendedor.email ?  "Official Car" : auto.vendedor.email }
                     </td>
                     <td className="px-6 py-4 flex flex-col gap-y-2 text-black text-sm ">
-                      <button className="bg-indigo-500 hover:bg-indigo-300 py-1 rounded px-1 transition duration-300">Show</button>
+                      <Link to={`/admin/vehicles/show/${auto._id}`} className="bg-indigo-500 hover:bg-indigo-300 py-1 rounded px-1 transition duration-300">Show</Link>
                       <Link to={`/admin/vehicles/update/${auto._id}`} className="bg-green-500 hover:bg-green-300 py-1 rounded px-1 transition duration-300">Edit</Link>
-                      <button className="bg-red-600 hover:bg-red-300 py-1 rounded px-1 transition duration-300">Delete</button>
+                      <Link to={`/admin/vehicles/delete/${auto._id}`} className="bg-red-600 hover:bg-red-300 py-1 rounded px-1 transition duration-300">Delete</Link>
                     </td>
                   </tr>
                 ))}

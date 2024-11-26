@@ -277,7 +277,7 @@ const UpdateAutos = () => {
   return (
     <section className="mt-[45px] container max-[870px]:px-10  max-[1270px]:px-10 px-20 max-w-[1360px] max-[1270px]:max-w-[1000px] mx-auto">
       <div>
-        <h2 className="text-3xl font-medium text-white">Create Vehicle</h2>
+        <h1 className="text-3xl font-medium text-white">Update Vehicle</h1>
       </div>
 
       <div className="mt-10 w-full rounded">
@@ -287,7 +287,7 @@ const UpdateAutos = () => {
           className="flex flex-col max-w-[1200px] w-full gap-x-20 xl:gap-x-10 max-[870px]:flex-col xl:flex-nowrap"
         >
           <div className="flex flex-col xl:w-3/5">
-            <h3 className="text-lg text-white">Uploads photos</h3>
+            <h2 className="text-lg text-white">Uploads photos</h2>
             <div className="flex flex-col mb-10  w-full ">
               <div className="flex max-[870px]:flex-col w-full  max-[870px]:gap-y-2 gap-x-10 xl:gap-x-5">
                 <ImgInputForm

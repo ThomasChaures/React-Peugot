@@ -64,12 +64,12 @@ const Details = () => {
 
   return (
     <>
-      <section className="mt-40 flex gap-4 items-start max-w-[1360px] mx-auto">
-        <div className="flex-col flex  items-start">
+      <section className="mt-40 flex gap-4 items-start max-lg:flex-col max-2xl:px-10 max-w-[1360px] mx-auto">
+        <div className="flex-col max-lg:w-full flex  max-lg:order-2 items-start">
           <div className="flex  gap-4 items-end">
-            <div className="h-[497px] relative order-2 w-[800px]">
+            <div className="h-[497px] max-lg:h-[400px] max-lg:w-full overflow-hidden max-xl:w-[500px]  relative order-2 w-[800px] bg-gray-100">
               <img
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
                 src={mainImg}
                 alt=""
               />
@@ -115,6 +115,17 @@ const Details = () => {
             </p>
           </div>
 
+          <div className="mt-3 hidden max-lg:flex w-full flex-col gap-y-2">
+            <button
+              type="submit"
+              className="bg-blue-600 text-md poppins-regular cursor-pointer flex items-center justify-center hover:bg-blue-500 transition-all rounded text-white h-12 w-full"
+            >
+              Start purchase
+            </button>
+            <div className="bg-blue-200/50 border border-blue-600 text-blue-600 text-md poppins-regular cursor-pointer flex items-center justify-center hover:text-white hover:bg-blue-500 transition-all rounded  h-10 w-full">
+              Save as Favorite
+            </div>
+          </div>
           <div className="mt-4 w-full">
             <h2 className="text-2xl mb-3 poppins-medium">Ask about</h2>
 
@@ -143,7 +154,7 @@ const Details = () => {
           </div>
         </div>
 
-        <div className="max-w-[33%] flex flex-col gap-y-1.5  w-full">
+        <div className="max-w-[33%] max-lg:max-w-full max-lg:order-1 flex flex-col gap-y-1.5  w-full">
           <div className="border-b pb-3">
             <h1 className="text-3xl pb-3  poppins-semibold">
               {auto.brand} - {auto.model}
@@ -177,7 +188,7 @@ const Details = () => {
               <li>Horesepower: {auto.horsepower}</li>
             </ul>
           </div>
-          <div className="mt-3 flex flex-col gap-y-2">
+          <div className="mt-3 max-lg:hidden flex flex-col gap-y-2">
             <button
               type="submit"
               className="bg-blue-600 text-md poppins-regular cursor-pointer flex items-center justify-center hover:bg-blue-500 transition-all rounded text-white h-12 w-full"

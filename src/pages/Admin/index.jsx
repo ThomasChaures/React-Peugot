@@ -34,7 +34,7 @@ const IndexAdmin = () => {
     getMarcas().then((data) => setBrands(data.length));
     getTipos().then((data) => setTypes(data.length));
     getUa()
-      .then((data) => setLastActivity(data))
+      .then((data) => setLastActivity(data.reverse().slice(0,8)))
       .catch((err) => console.log(err));
 
     getAutosAll()

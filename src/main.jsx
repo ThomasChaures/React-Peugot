@@ -23,6 +23,9 @@ const Profile = lazy(() => import("./pages/Profile/Index.jsx"));
 const UpdateAutos = lazy(() =>
   import("./pages/Admin/CrudAutos/UpdateAutos.jsx")
 );
+const ShowAutos = lazy(() =>
+  import("./pages/Admin/CrudAutos/ShowAuto.jsx")
+);
 const DeleteAutos = lazy(() =>
   import("./pages/Admin/CrudAutos/DeleteAutos.jsx")
 );
@@ -196,7 +199,7 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoutesAdmin>
             <Suspense fallback={<div>Loading...</div>}>
-              <UpdateAutos ></UpdateAutos>
+              <DeleteAutos></DeleteAutos>
             </Suspense>
           </ProtectedRoutesAdmin>
         ),
@@ -206,7 +209,7 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoutesAdmin>
             <Suspense fallback={<div>Loading...</div>}>
-              <UpdateAutos ></UpdateAutos>
+              <ShowAutos ></ShowAutos>
             </Suspense>
           </ProtectedRoutesAdmin>
         ),

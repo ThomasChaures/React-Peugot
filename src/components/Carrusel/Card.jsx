@@ -45,7 +45,7 @@ const Card = ({ auto }) => {
         </>
       ) : null}
 
-      <div className="mb-4 h-[250px] w-full">
+      <div className="mb-4 h-[250px]  overflow-hidden w-[450px]">
         <img
           src={auto.img1 ? `http://localhost:3333/uploads/${auto.img1}` : placeholder }
           alt={auto.model || "Auto"}
