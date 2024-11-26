@@ -40,11 +40,23 @@ const NavBar = () => {
         </div>
 
         <ul className="mt-4 space-y-4 px-4">
+        <li>
+            <Link
+              to="/admin"
+              className={`block px-4 py-2 rounded-md ${
+                location.pathname === "/admin"
+                  ? "bg-blue-500 text-white"
+                  : "text-gray-300 hover:bg-gray-800 hover:text-white"
+              }`}
+            >
+              Dashboard
+            </Link>
+          </li>
           <li>
             <Link
               to="/admin/vehicles"
               className={`block px-4 py-2 rounded-md ${
-                location.pathname === "/vehicles"
+                location.pathname === "/admin/vehicles"
                   ? "bg-blue-500 text-white"
                   : "text-gray-300 hover:bg-gray-800 hover:text-white"
               }`}
@@ -56,7 +68,7 @@ const NavBar = () => {
             <Link
               to="/admin/users"
               className={`block px-4 py-2 rounded-md ${
-                location.pathname === "/users"
+                location.pathname === "/admin/users"
                   ? "bg-blue-500 text-white"
                   : "text-gray-300 hover:bg-gray-800 hover:text-white"
               }`}
@@ -66,14 +78,26 @@ const NavBar = () => {
           </li>
           <li>
             <Link
-              to="/brands"
+              to="/admin/brands"
               className={`block px-4 py-2 rounded-md ${
-                location.pathname === "/brands"
+                location.pathname === "/admin/brands"
                   ? "bg-blue-500 text-white"
                   : "text-gray-300 hover:bg-gray-800 hover:text-white"
               }`}
             >
               Brands
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/admin/types"
+              className={`block px-4 py-2 rounded-md ${
+                location.pathname === "/admin/types"
+                  ? "bg-blue-500 text-white"
+                  : "text-gray-300 hover:bg-gray-800 hover:text-white"
+              }`}
+            >
+              Types
             </Link>
           </li>
           {!token ? (

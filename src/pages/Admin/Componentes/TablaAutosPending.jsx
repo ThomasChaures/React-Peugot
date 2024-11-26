@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { getAutos } from '../../../service/autos.service'
+import { getAutosAll } from '../../../service/autos.service'
 import { Link } from 'react-router-dom'
 
-const TablaAutos = () => {
+const TablaAutosPending = () => {
   const [autos, setAutos] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
-    getAutos()
-      .then(data => setAutos(data))
+    getAutosAll()
+      .then(data => {
+        const autos_forSale = data.filter((auto) => auto.status === "pending");
+        setAutos(autos_forSale);
+      })
       .catch(error => console.error("Error al obtener los autos:", error));
   }, [])
 
@@ -23,11 +26,8 @@ const TablaAutos = () => {
         <div className="flex items-center justify-between p-5 border-b border-gray-700">
           <h1 className="text-2xl font-bold text-white">Vehicle</h1>
          <div className='flex gap-x-2'>
-         <Link to='/admin/vehicles/pending' className="px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-500 transition duration-300">
-           Pending Vehicles
-          </Link>
-          <Link to='/admin/vehicles/create' className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-500 transition duration-300">
-            Add New Vehicle
+          <Link to='/admin/vehicles/' className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-500 transition duration-300">
+            Back to list
           </Link>
          </div>
         </div>
@@ -61,7 +61,7 @@ const TablaAutos = () => {
                     <td className="px-6 py-4 text-sm text-gray-400">{auto.brand}</td>
                     <td className="px-6 py-4">
                       <img
-                        src="/placeholder.svg?height=48&width=48"
+                        src={`http://localhost:3333/uploads/${auto.img1}`}
                         alt={auto.model}
                         className="w-12 h-12 rounded-full object-cover border border-gray-700"
                       />
@@ -69,11 +69,10 @@ const TablaAutos = () => {
                     <td className="px-6 py-4 text-sm text-gray-400">${auto.price.toLocaleString()}</td>
                     <td className="px-6 py-4 text-sm text-gray-400">{auto.status}</td>
                     <td className="px-6 py-4 text-sm text-gray-400">
-                      {!auto.vendedor ? "Official Car" : auto.vendedor.email}
+                      {!auto.vendedor ?  auto.vendedor.email : "Official Car" }
                     </td>
                     <td className="px-6 py-4 flex flex-col gap-y-2 text-black text-sm ">
-                      <button className="bg-indigo-500 hover:bg-indigo-300 py-1 rounded px-1 transition duration-300">Show</button>
-                      <Link to={`/admin/vehicles/update/${auto._id}`} className="bg-green-500 hover:bg-green-300 py-1 rounded px-1 transition duration-300">Edit</Link>
+                      <Link to={`/admin/vehicles/pending/check/${auto._id}`} className="bg-indigo-500 hover:bg-indigo-300 py-1 rounded px-1 transition duration-300">Check</Link>
                       <button className="bg-red-600 hover:bg-red-300 py-1 rounded px-1 transition duration-300">Delete</button>
                     </td>
                   </tr>
@@ -87,4 +86,4 @@ const TablaAutos = () => {
   )
 }
 
-export default TablaAutos
+export default TablaAutosPending

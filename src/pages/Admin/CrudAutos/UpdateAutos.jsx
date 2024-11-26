@@ -5,7 +5,7 @@ import { getTipos } from "../../../service/tipos.service.js";
 import { patchAuto } from "../../../service/autos.service.js";
 import { getMarcas } from "../../../service/marcas.service.js";
 import { useNavigate } from "react-router-dom";
-import { postUploads } from "../../../service/uploads.service";
+import { postUploads } from "../../../service/uploads.service.js";
 import { getAuto } from "../../../service/autos.service.js";
 import { useParams } from "react-router-dom";
 import Error from "../../../components/Error/Error.jsx";

@@ -4,6 +4,11 @@ export async function getAutos() {
   return call({ uri: "autos" });
 }
 
+export async function getAutosAll() {
+  return call({ uri: "au/all" });
+}
+
+
 export async function getSearch(uri) {
   return call({ uri: `autos?${uri}` });
 }

@@ -27,6 +27,12 @@ const DeleteAutos = lazy(() =>
   import("./pages/Admin/CrudAutos/DeleteAutos.jsx")
 );
 const IndexSellCar = lazy(() => import("./pages/SellCar/index.jsx"));
+const CreateBrand = lazy(() => import('./pages/Admin/Marcas/CrudMarcas/CreateMarca.jsx'))
+const CreateTipos = lazy(() => import('./pages/Admin/Tipos/CrudTipos/CreateTipo.jsx'))
+const IndexBrandsAdmin = lazy(() => import('./pages/Admin/Marcas/index.jsx'))
+const IndexTypesAdmin = lazy(() => import('./pages/Admin/Tipos/index.jsx'))
+const Pending = lazy(() => import('./pages/Admin/AutosPending/Pending.jsx'))
+const Check = lazy(() => import('./pages/Admin/AutosPending/Check.jsx'))
 const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -156,6 +162,26 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/admin/vehicles/pending",
+        element: (
+          <ProtectedRoutesAdmin>
+            <Suspense fallback={<div>Loading...</div>}>
+              <Pending></Pending>
+            </Suspense>
+          </ProtectedRoutesAdmin>
+        ),
+      },
+      {
+        path: "/admin/vehicles/pending/check/:id",
+        element: (
+          <ProtectedRoutesAdmin>
+            <Suspense fallback={<div>Loading...</div>}>
+              <Check></Check>
+            </Suspense>
+          </ProtectedRoutesAdmin>
+        ),
+      },
+      {
         path: "/admin/vehicles/update/:auto_id",
         element: (
           <ProtectedRoutesAdmin>
@@ -185,6 +211,47 @@ const router = createBrowserRouter([
           </ProtectedRoutesAdmin>
         ),
       },
+      {
+        path: "/admin/brands",
+        element: (
+          <ProtectedRoutesAdmin>
+            <Suspense fallback={<div>Loading...</div>}>
+              <IndexBrandsAdmin></IndexBrandsAdmin>
+            </Suspense>
+          </ProtectedRoutesAdmin>
+        ),
+      },
+      {
+        path: "/admin/brands/create",
+        element: (
+          <ProtectedRoutesAdmin>
+            <Suspense fallback={<div>Loading...</div>}>
+              <CreateBrand></CreateBrand>
+            </Suspense>
+          </ProtectedRoutesAdmin>
+        ),
+      },
+      {
+        path: "/admin/types/",
+        element: (
+          <ProtectedRoutesAdmin>
+            <Suspense fallback={<div>Loading...</div>}>
+              <IndexTypesAdmin></IndexTypesAdmin>
+            </Suspense>
+          </ProtectedRoutesAdmin>
+        ),
+      },
+      {
+        path: "/admin/types/create",
+        element: (
+          <ProtectedRoutesAdmin>
+            <Suspense fallback={<div>Loading...</div>}>
+              <CreateTipos></CreateTipos>
+            </Suspense>
+          </ProtectedRoutesAdmin>
+        ),
+      },
+      
     ],
   },
 ]);

@@ -10,7 +10,7 @@ const Index = () => {
   const [autos, setAutos] = useState([]);
   const [autosSold, setAutosSold] = useState([]);
   const [autosPending, setAutosPending] = useState([]);
-  const [activeTab, setActiveTab] = useState(1); // 1 = For Sale, 2 = Sold, 3 = Pending
+  const [activeTab, setActiveTab] = useState(1); 
 
   useEffect(() => {
     getUserData(id).then((data) => {
