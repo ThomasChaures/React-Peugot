@@ -107,6 +107,14 @@ const NavBar = () => {
                   onClick={() => setIsOpen((prevState) => !prevState)}
                   className="nav-item max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 "
                 >
+                  <Link className="nav-link" to="/types">
+                    Types
+                  </Link>
+                </li>
+                <li
+                  onClick={() => setIsOpen((prevState) => !prevState)}
+                  className="nav-item max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 "
+                >
                   <Link className="nav-link" to="/profile">
                     Profile
                   </Link>
@@ -115,9 +123,9 @@ const NavBar = () => {
                   onClick={() => setIsOpen((prevState) => !prevState)}
                   className="nav-item  max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 "
                 >
-                  <Link className="nav-link" to="/logout">
-                    Logout
-                  </Link>
+                  <button className="nav-link" to="/logout">
+                  <i className="fa-solid fa-arrow-right-from-bracket"></i>
+                  </button>
                 </li>
               </>
             )}

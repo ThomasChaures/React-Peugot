@@ -3,6 +3,7 @@ import { getUa } from "../../service/ua.service";
 import { getTipos } from "../../service/tipos.service";
 import { getMarcas } from "../../service/marcas.service";
 import { getAutosAll } from "../../service/autos.service";
+import ChartDashboard from "./Componentes/ChartDashboard";
 const IndexAdmin = () => {
   const [lastActivity, setLastActivity] = useState([]);
   const [brands, setBrands] = useState(0);
@@ -54,7 +55,8 @@ const IndexAdmin = () => {
   }, []);
   return (
     <>
-      <section className=" px-20 max-w-[900px] mt-[45px]">
+     <section className="flex items-start max-lg:flex-col"> 
+     <div className=" px-20 w-full mt-[45px]">
         <h1 className="text-3xl font-medium text-white">Dashboard</h1>
 
         <div className="mt-10 flex gap-x-10">
@@ -121,12 +123,14 @@ const IndexAdmin = () => {
             </div>
           </div>
         </div>
-      </section>
 
-      <section className="max-w-[900px] px-20 mt-[45px]">
+        <ChartDashboard/>
+      </div>
+
+      <div className=" w-full px-20 mt-[45px]">
         <h2 className="text-white font-medium text-xl">Last activity</h2>
 
-        <ul className="mt-4 max-w-[800px] flex flex-col gap-y-3 w-full">
+        <ul className="mt-12 max-w-[1000px] flex flex-col gap-y-3 w-full">
           {lastActivity.map((ua, index) => {
             return (
               <li
@@ -145,7 +149,10 @@ const IndexAdmin = () => {
             );
           })}
         </ul>
-      </section>
+
+
+      </div>
+     </section>
     </>
   );
 };

@@ -70,13 +70,13 @@ const TablaUsuarios = () => {
                       {usuario.email}
                     </td>
                     <td className="px-6 py-4 flex flex-col gap-y-2 text-black text-sm ">
-                      <button className="bg-indigo-500 hover:bg-indigo-300 py-1 rounded px-1 transition duration-300">
+                      <button className="bg-indigo-500  flex items-center justify-center text-white hover:bg-indigo-300 py-1 rounded px-1 transition duration-300">
                         Show
                       </button>
-                      <button className="bg-green-500 hover:bg-green-300 py-1 rounded px-1 transition duration-300">
+                      <button className="bg-green-500  flex items-center justify-center text-white hover:bg-green-300 py-1 rounded px-1 transition duration-300">
                         Edit
                       </button>
-                      <button className="bg-red-600 hover:bg-red-300 py-1 rounded px-1 transition duration-300">
+                      <button className="bg-red-600  flex items-center justify-center text-white hover:bg-red-300 py-1 rounded px-1 transition duration-300">
                         Delete
                       </button>
                     </td>

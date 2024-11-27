@@ -9,15 +9,16 @@ const Form = ({ id, name, surname }) => {
     console.log(name, surname);
   };
 
-  const submitForm = (e) => {
+  const submitForm =  async (e) => {
 
-
+    e.preventDefault();
 
     if (!text.trim()) {
-      e.preventDefault();
+   
       return false;
     }
 
+    console.log(name, surname, text)
    
     const comentario = {
       name: name,

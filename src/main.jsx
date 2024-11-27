@@ -13,6 +13,7 @@ const Home = lazy(() => import("./pages/Home.jsx"));
 const IndexAutos = lazy(() => import("./pages/Autos/Index.jsx"));
 const DetailsCars = lazy(() => import("./pages/DetailsAutos/Details.jsx"));
 import Error404Page from "./pages/Error404Page.jsx";
+import Index from "./pages/Success/Index.jsx";
 const IndexAutosAdmin = lazy(() => import("./pages/Admin/IndexAutos.jsx"));
 const IndexUsuarios = lazy(() => import("./pages/Admin/IndexUsers.jsx"));
 const IndexAdmin = lazy(() => import("./pages/Admin/index.jsx"));
@@ -23,19 +24,24 @@ const Profile = lazy(() => import("./pages/Profile/Index.jsx"));
 const UpdateAutos = lazy(() =>
   import("./pages/Admin/CrudAutos/UpdateAutos.jsx")
 );
-const ShowAutos = lazy(() =>
-  import("./pages/Admin/CrudAutos/ShowAuto.jsx")
-);
+const ShowAutos = lazy(() => import("./pages/Admin/CrudAutos/ShowAuto.jsx"));
 const DeleteAutos = lazy(() =>
   import("./pages/Admin/CrudAutos/DeleteAutos.jsx")
 );
 const IndexSellCar = lazy(() => import("./pages/SellCar/index.jsx"));
-const CreateBrand = lazy(() => import('./pages/Admin/Marcas/CrudMarcas/CreateMarca.jsx'))
-const CreateTipos = lazy(() => import('./pages/Admin/Tipos/CrudTipos/CreateTipo.jsx'))
-const IndexBrandsAdmin = lazy(() => import('./pages/Admin/Marcas/index.jsx'))
-const IndexTypesAdmin = lazy(() => import('./pages/Admin/Tipos/index.jsx'))
-const Pending = lazy(() => import('./pages/Admin/AutosPending/Pending.jsx'))
-const Check = lazy(() => import('./pages/Admin/AutosPending/Check.jsx'))
+const CreateBrand = lazy(() =>
+  import("./pages/Admin/Marcas/CrudMarcas/CreateMarca.jsx")
+);
+const CreateTipos = lazy(() =>
+  import("./pages/Admin/Tipos/CrudTipos/CreateTipo.jsx")
+);
+const IndexBrandsAdmin = lazy(() => import("./pages/Admin/Marcas/index.jsx"));
+const IndexTypesAdmin = lazy(() => import("./pages/Admin/Tipos/index.jsx"));
+const Pending = lazy(() => import("./pages/Admin/AutosPending/Pending.jsx"));
+const Check = lazy(() => import("./pages/Admin/AutosPending/Check.jsx"));
+const IndexBrands = lazy(() => import("./pages/Brands/index.jsx"));
+const IndexTypes = lazy(() => import("./pages/Types/index.jsx"));
+import Loader from "./components/Loader/Loader.jsx";
 const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -45,8 +51,28 @@ const router = createBrowserRouter([
         errorElement: <Error404Page />,
         element: (
           <ProtectedRoutes>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader/>}>
               <Home></Home>
+            </Suspense>
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "/brands",
+        element: (
+          <ProtectedRoutes>
+            <Suspense fallback={<Loader/>}>
+              <IndexBrands></IndexBrands>
+            </Suspense>
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "/types",
+        element: (
+          <ProtectedRoutes>
+            <Suspense fallback={<Loader/>}>
+              <IndexTypes></IndexTypes>
             </Suspense>
           </ProtectedRoutes>
         ),
@@ -55,7 +81,7 @@ const router = createBrowserRouter([
         path: "/vehicles",
         element: (
           <ProtectedRoutes>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader/>}>
               <IndexAutos></IndexAutos>
             </Suspense>
           </ProtectedRoutes>
@@ -65,7 +91,7 @@ const router = createBrowserRouter([
         path: "/vehicle/details/:id",
         element: (
           <ProtectedRoutes>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader/>}>
               <DetailsCars></DetailsCars>
             </Suspense>
           </ProtectedRoutes>
@@ -75,7 +101,7 @@ const router = createBrowserRouter([
         path: "/vehicle/sell",
         element: (
           <ProtectedRoutes>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader/>}>
               <IndexSellCar></IndexSellCar>
             </Suspense>
           </ProtectedRoutes>
@@ -85,7 +111,7 @@ const router = createBrowserRouter([
         path: "/profile",
         element: (
           <ProtectedRoutes>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader/>}>
               <Profile></Profile>
             </Suspense>
           </ProtectedRoutes>
@@ -94,7 +120,7 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loader/>}>
             <Login></Login>
           </Suspense>
         ),
@@ -102,7 +128,7 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loader/>}>
             <Register></Register>
           </Suspense>
         ),
@@ -110,10 +136,14 @@ const router = createBrowserRouter([
       {
         path: "/logout",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loader/>}>
             <Logout></Logout>
           </Suspense>
         ),
+      },
+      {
+        path: "/success",
+        element: <Index />,
       },
       {
         path: "*",
@@ -128,7 +158,7 @@ const router = createBrowserRouter([
         path: "/admin",
         element: (
           <ProtectedRoutesAdmin>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader/>}>
               <IndexAdmin></IndexAdmin>
             </Suspense>
           </ProtectedRoutesAdmin>
@@ -138,7 +168,7 @@ const router = createBrowserRouter([
         path: "/admin/users",
         element: (
           <ProtectedRoutesAdmin>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader/>}>
               <IndexUsuarios></IndexUsuarios>
             </Suspense>
           </ProtectedRoutesAdmin>
@@ -148,7 +178,7 @@ const router = createBrowserRouter([
         path: "/admin/vehicles",
         element: (
           <ProtectedRoutesAdmin>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader/>}>
               <IndexAutosAdmin></IndexAutosAdmin>
             </Suspense>
           </ProtectedRoutesAdmin>
@@ -158,8 +188,8 @@ const router = createBrowserRouter([
         path: "/admin/vehicles/create",
         element: (
           <ProtectedRoutesAdmin>
-            <Suspense fallback={<div>Loading...</div>}>
-              <CreateAutos ></CreateAutos>
+            <Suspense fallback={<Loader/>}>
+              <CreateAutos></CreateAutos>
             </Suspense>
           </ProtectedRoutesAdmin>
         ),
@@ -168,7 +198,7 @@ const router = createBrowserRouter([
         path: "/admin/vehicles/pending",
         element: (
           <ProtectedRoutesAdmin>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader/>}>
               <Pending></Pending>
             </Suspense>
           </ProtectedRoutesAdmin>
@@ -178,7 +208,7 @@ const router = createBrowserRouter([
         path: "/admin/vehicles/pending/check/:id",
         element: (
           <ProtectedRoutesAdmin>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader/>}>
               <Check></Check>
             </Suspense>
           </ProtectedRoutesAdmin>
@@ -188,8 +218,8 @@ const router = createBrowserRouter([
         path: "/admin/vehicles/update/:auto_id",
         element: (
           <ProtectedRoutesAdmin>
-            <Suspense fallback={<div>Loading...</div>}>
-              <UpdateAutos ></UpdateAutos>
+            <Suspense fallback={<Loader/>}>
+              <UpdateAutos></UpdateAutos>
             </Suspense>
           </ProtectedRoutesAdmin>
         ),
@@ -198,7 +228,7 @@ const router = createBrowserRouter([
         path: "/admin/vehicles/delete/:id",
         element: (
           <ProtectedRoutesAdmin>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader/>}>
               <DeleteAutos></DeleteAutos>
             </Suspense>
           </ProtectedRoutesAdmin>
@@ -208,8 +238,8 @@ const router = createBrowserRouter([
         path: "/admin/vehicles/show/:id",
         element: (
           <ProtectedRoutesAdmin>
-            <Suspense fallback={<div>Loading...</div>}>
-              <ShowAutos ></ShowAutos>
+            <Suspense fallback={<Loader/>}>
+              <ShowAutos></ShowAutos>
             </Suspense>
           </ProtectedRoutesAdmin>
         ),
@@ -218,7 +248,7 @@ const router = createBrowserRouter([
         path: "/admin/brands",
         element: (
           <ProtectedRoutesAdmin>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader/>}>
               <IndexBrandsAdmin></IndexBrandsAdmin>
             </Suspense>
           </ProtectedRoutesAdmin>
@@ -228,7 +258,7 @@ const router = createBrowserRouter([
         path: "/admin/brands/create",
         element: (
           <ProtectedRoutesAdmin>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader/>}>
               <CreateBrand></CreateBrand>
             </Suspense>
           </ProtectedRoutesAdmin>
@@ -238,7 +268,7 @@ const router = createBrowserRouter([
         path: "/admin/types/",
         element: (
           <ProtectedRoutesAdmin>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader/>}>
               <IndexTypesAdmin></IndexTypesAdmin>
             </Suspense>
           </ProtectedRoutesAdmin>
@@ -248,13 +278,12 @@ const router = createBrowserRouter([
         path: "/admin/types/create",
         element: (
           <ProtectedRoutesAdmin>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader/>}>
               <CreateTipos></CreateTipos>
             </Suspense>
           </ProtectedRoutesAdmin>
         ),
       },
-      
     ],
   },
 ]);

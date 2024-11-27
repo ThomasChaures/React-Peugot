@@ -44,7 +44,7 @@ const Details = () => {
       setEmail(data.email);
       setRole(data.role);
       setUser(data);
-      console.log(data.email);
+      console.log(data.email, data.name, data.surname);
     });
 
     getAuto(id)
@@ -122,9 +122,9 @@ const Details = () => {
             >
               Start purchase
             </button>
-            <div className="bg-blue-200/50 border border-blue-600 text-blue-600 text-md poppins-regular cursor-pointer flex items-center justify-center hover:text-white hover:bg-blue-500 transition-all rounded  h-10 w-full">
+            {/* <div className="bg-blue-200/50 border border-blue-600 text-blue-600 text-md poppins-regular cursor-pointer flex items-center justify-center hover:text-white hover:bg-blue-500 transition-all rounded  h-10 w-full">
               Save as Favorite
-            </div>
+            </div> */}
           </div>
           <div className="mt-4 w-full">
             <h2 className="text-2xl mb-3 poppins-medium">Ask about</h2>
@@ -195,9 +195,9 @@ const Details = () => {
             >
               Start purchase
             </button>
-            <div className="bg-blue-200/50 border border-blue-600 text-blue-600 text-md poppins-regular cursor-pointer flex items-center justify-center hover:text-white hover:bg-blue-500 transition-all rounded  h-10 w-full">
+            {/* <div className="bg-blue-200/50 border border-blue-600 text-blue-600 text-md poppins-regular cursor-pointer flex items-center justify-center hover:text-white hover:bg-blue-500 transition-all rounded  h-10 w-full">
               Save as Favorite
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

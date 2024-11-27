@@ -7,6 +7,7 @@ import { getMarcas } from "../../service/marcas.service";
 import { useNavigate } from "react-router-dom";
 import { postUploads } from "../../service/uploads.service";
 import Error from "../../components/Error/Error.jsx";
+import Loader from "../../components/Loader/Loader.jsx";
 import { getUserData } from "../../service/auth.service.js";
 
 const index = () => {
@@ -17,7 +18,8 @@ const index = () => {
   const [types, setTypes] = useState([]);
   const [files, setFiles] = useState({});
   const [errors, setErrors] = useState({});
-  const [user, setUser] = useState({})
+  const [loader, setLoader] = useState(false);
+  const [user, setUser] = useState({});
   const [formData, setFormData] = useState({
     img1: "",
     img2: "",
@@ -35,10 +37,9 @@ const index = () => {
       name: user.name,
       surname: user.surname,
       email: user.email,
-    }
+    },
   });
 
- 
   const handleFileChange = (id, file) => {
     setFiles((prevFiles) => ({ ...prevFiles, [`img${id}`]: file }));
     setFormData((prev) => ({
@@ -58,7 +59,10 @@ const index = () => {
   const validateField = (name, value) => {
     let error = "";
 
-    if ((name === "img1" || name === "img2" || name === "img3") && (value === '')) {
+    if (
+      (name === "img1" || name === "img2" || name === "img3") &&
+      value === ""
+    ) {
       error = "You must upload 3 images.";
     } else if (!value) {
       error = `You must provide a valid ${name}.`;
@@ -66,14 +70,14 @@ const index = () => {
       error = "Price must be greater than 0.";
     } else if (name === "horsepower" && value <= 0) {
       error = "Horsepower must be a positive number.";
-    } 
+    }
 
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]: error,
     }));
 
-    return error === ""; 
+    return error === "";
   };
 
   // Valida todo el formulario
@@ -89,17 +93,18 @@ const index = () => {
   };
 
   const handleSubmit = async (e) => {
+   
     e.preventDefault();
-  
+
     if (validateForm()) {
       console.log("Form is valid, submitting...");
-  
+
       const uploadPromises = ["img1", "img2", "img3"].map((imgKey) => {
         if (formData[imgKey]) {
           const formFile = new FormData();
           const img = files[imgKey];
           formFile.append("file", img);
-  
+
           return postUploads(formFile).then((data) => ({
             key: imgKey,
             value: data.file,
@@ -107,11 +112,11 @@ const index = () => {
         }
         return null;
       });
-  
+
       // Esperar todas las promesas
       const uploadedFiles = await Promise.all(uploadPromises);
-  
-      // Actualizar formData con las URLs de las imágenes
+
+      setLoader(true);
       uploadedFiles.forEach((file) => {
         if (file) {
           setFormData((prev) => ({
@@ -120,41 +125,41 @@ const index = () => {
           }));
         }
       });
-  
+
       // Enviar formulario
       postAuto(formData)
         .then((data) => {
           console.log("Auto created:", data);
-         
+          setLoader(false)
+          navigate('/success')
         })
-        .catch((err) => console.log("Error creating auto:", err));
+
+              
+        .catch((err) =>{
+          console.log("Error creating auto:", err)
+          setLoader(false)
+        })
     }
   };
-  
 
   useEffect(() => {
-    console.log(id);
-    getUserData(id).then(data => setUser(data))
-    getTipos().then((data) => setTypes(data));
-    getMarcas().then((data) => setBrands(data));
-  }, []);
-
-  useEffect(() => {
-    if (user?.name) {
-      setFormData((prev) => ({
-        ...prev,
-        vendedor: {
-          name: user.name,
-          surname: user.surname,
-          email: user.email,
-        },
-      }));
-    }
-  }, [user]);
+    Promise.all([getUserData(id), getTipos(), getMarcas()]).then(
+      ([userData, tipos, marcas]) => {
+        setUser(userData);
+        setTypes(tipos);
+        setBrands(marcas);
+      }
+    );
+  }, [id]);
   
 
   return (
     <section className="mt-40 container max-[870px]:px-10 max-[1270px]:px-10 px-20 max-w-[1360px] max-[1270px]:max-w-[1000px] mx-auto">
+
+      {
+        (loader) && <Loader />
+      }
+
       <div>
         <div className="bg-blue-200/50 border border-blue-600 text-blue-600 text-sm poppins-regular cursor-pointer flex items-center justify-center hover:text-white hover:bg-blue-500 transition-all rounded h-8 w-[200px] mb-10">
           Back to home
@@ -192,7 +197,7 @@ const index = () => {
                 />
               </div>
 
-              {(errors.img1)&& (
+              {errors.img1 && (
                 <div className="mt-10">
                   <Error>You must upload 3 images.</Error>
                 </div>

@@ -11,9 +11,8 @@ const FormComentario = ({ id, index, name, surname, sub }) => {
   };
 
   const submitForm = async (e) => {
-    e.preventDefault();
-
     if (!text.trim()) {
+      e.preventDefault();
       setError("El texto no puede estar vacío");
       return;
     }
@@ -30,7 +29,7 @@ const FormComentario = ({ id, index, name, surname, sub }) => {
       setError(null);
       await addAnswer(answer, id);
       setText(""); // Resetea el textarea después de enviar la respuesta
-      sub(false)
+      sub(false);
     } catch (error) {
       setError("Hubo un problema al enviar la respuesta");
       console.error("Error al enviar la respuesta:", error);

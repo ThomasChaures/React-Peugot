@@ -26,7 +26,7 @@ const Card = ({ auto }) => {
         </>
       ) : null}
 
-      {!auto.vendedor ? (
+      {!auto.vendedor.email ? (
         <>
           <div
             onMouseEnter={() => setFlagPopUp(true)}

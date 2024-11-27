@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./HeroSection.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getMarcas } from "../../service/marcas.service";
 import { getTipos } from "../../service/tipos.service";
+
 
 const HeroSection = () => {
   const [usage, setUsage] = useState("new");
@@ -10,9 +11,8 @@ const HeroSection = () => {
   const [type, setType] = useState("");
   const [price, setPrice] = useState("");
 
-
-  const [types, setTypes] = useState([])
-  const [brands, setBrands] = useState([])
+  const [types, setTypes] = useState([]);
+  const [brands, setBrands] = useState([]);
 
   const navigate = useNavigate();
 
@@ -30,16 +30,15 @@ const HeroSection = () => {
     navigate(`/vehicles?${params.toString()}`);
   };
 
-
   useEffect(() => {
-      getMarcas()
-      .then(data => setBrands(data))
-      .catch((error) => console.log(error))
+    getMarcas()
+      .then((data) => setBrands(data))
+      .catch((error) => console.log(error));
 
-      getTipos()
-      .then(data => setTypes(data))
-      .catch((error) => console.log(error))
-  }, [])
+    getTipos()
+      .then((data) => setTypes(data))
+      .catch((error) => console.log(error));
+  }, []);
 
   return (
     <section className="h-screen relative background-hero">
@@ -101,14 +100,9 @@ const HeroSection = () => {
                   <option disabled value="">
                     Select Brand
                   </option>
-                  {
-                    brands.map((marca, index) => {
-                      return (
-                        <option value={marca.marca}>{marca.marca}</option>
-                    
-                      )
-                    })
-                  }
+                  {brands.map((marca, index) => {
+                    return <option key={index} value={marca.marca}>{marca.marca}</option>;
+                  })}
                 </select>
 
                 <div className="w-[1px] h-[80%] bg-black/30"></div>
@@ -122,14 +116,9 @@ const HeroSection = () => {
                   <option disabled value="">
                     Select Type
                   </option>
-                  {
-                    types.map((tipo, index) => {
-                      return (
-                        <option value={tipo.tipo}>{tipo.tipo}</option>
-                    
-                      )
-                    })
-                  }
+                  {types.map((tipo, index) => {
+                    return <option key={index} value={tipo.tipo}>{tipo.tipo}</option>;
+                  })}
                 </select>
 
                 <div className="w-[1px] h-[80%] bg-black/30"></div>
@@ -158,35 +147,21 @@ const HeroSection = () => {
               </div>
             </form>
           </div>
-          <div className="max-w-[750px]">
+          <div className="max-w-[700px]">
             <p className="text-center mb-4 text-white/70">
               Browse Featured Model{" "}
             </p>
             <ul className="flex items-center justify-center gap-4 flex-wrap">
-              <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">
-                Hatchback
-              </li>
-              <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">
-                SUV
-              </li>
-              <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">
-                Sedan
-              </li>
-              <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">
-                MPV
-              </li>
-              <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">
-                Convertible
-              </li>
-              <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">
-                Van
-              </li>
-              <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">
-                Coupe
-              </li>
-              <li className="bg-black/50 hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full">
-                Pickup
-              </li>
+              {types.map((tipo, index) => {
+                return (
+                  <li
+                    key={index}
+                    className={`bg-black/50 ${tipo.tipo === 'Other' ? 'hidden' : ''} hover:bg-black cursor-pointer transition-all px-5 text-white py-2 rounded-full`}
+                  >
+                    <Link to={`/vehicles?type=${tipo.tipo}`}>{tipo.tipo}</Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
