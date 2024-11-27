@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useToken } from "../../contexts/session.context";
+import { getUserData } from "../../service/auth.service";
+import { useToken, useId } from "../../contexts/session.context";
 
 const NavBar = () => {
   const location = useLocation();
   const token = useToken();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [rol, setRol] = useState("User");
+  const id = useId();
 
   useEffect(() => {
+    getUserData(id).then((data) => setRol(data.role));
     const handleScroll = () => {
       setIsScrolled(window.scrollY >= 200);
     };
@@ -79,6 +83,16 @@ const NavBar = () => {
               </>
             ) : (
               <>
+                {rol === "Admin" && (
+                  <li
+                    onClick={() => setIsOpen((prevState) => !prevState)}
+                    className="nav-item max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 "
+                  >
+                    <Link className="nav-link" to="/admin">
+                      Admin Panel
+                    </Link>
+                  </li>
+                )}
                 <li
                   onClick={() => setIsOpen((prevState) => !prevState)}
                   className="nav-item max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 "
@@ -124,7 +138,7 @@ const NavBar = () => {
                   className="nav-item  max-lg:py-3 max-lg:border-b max-lg:border-white/20 max-lg:hover:bg-slate-700 max-lg:px-2 "
                 >
                   <Link className="nav-link" to="/logout">
-                  <i className="fa-solid fa-arrow-right-from-bracket"></i>
+                    <i className="fa-solid fa-arrow-right-from-bracket"></i>
                   </Link>
                 </li>
               </>

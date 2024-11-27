@@ -4,7 +4,7 @@ import ImgInputForm from "./Components/ImgInputForm";
 import { getTipos } from "../../service/tipos.service";
 import { postAuto } from "../../service/autos.service";
 import { getMarcas } from "../../service/marcas.service";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { postUploads } from "../../service/uploads.service";
 import Error from "../../components/Error/Error.jsx";
 import Loader from "../../components/Loader/Loader.jsx";
@@ -176,9 +176,9 @@ const index = () => {
       {loader && <Loader />}
 
       <div>
-        <div className="bg-blue-200/50 border border-blue-600 text-blue-600 text-sm poppins-regular cursor-pointer flex items-center justify-center hover:text-white hover:bg-blue-500 transition-all rounded h-8 w-[200px] mb-10">
+        <Link to={`/`} className="bg-blue-200/50 border border-blue-600 text-blue-600 text-sm poppins-regular cursor-pointer flex items-center justify-center hover:text-white hover:bg-blue-500 transition-all rounded h-8 w-[200px] mb-10">
           Back to home
-        </div>
+        </Link>
         <h2 className="text-3xl font-medium">List your car to sell</h2>
         <p className="text-black/70">
           Fill in the details below to create your car listing
