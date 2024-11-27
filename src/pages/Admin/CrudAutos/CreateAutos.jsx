@@ -47,7 +47,6 @@ const CreateAutos = () => {
     }));
   };
 
-  // Función para validar campos
   const validateField = (name, value) => {
     let error = "";
 
@@ -59,14 +58,18 @@ const CreateAutos = () => {
       error = "Price must be greater than 0.";
     } else if (name === "horsepower" && value <= 0) {
       error = "Horsepower must be a positive number.";
-    } 
+    } else if (name === "year" && (value < 1970 || value > 2024)) {
+      error = "Year must be between 1970 and 2024.";
+    } else if ((name === "price" || name === "horsepower") && value < 0) {
+      error = `${name} cannot be negative.`;
+    }
 
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]: error,
     }));
 
-    return error === ""; 
+    return error === "";
   };
 
   // Valida todo el formulario
@@ -125,7 +128,7 @@ const CreateAutos = () => {
 
       <div className="mt-10 w-full rounded">
         <form
-          enctype="multipart/form-data"
+          encType="multipart/form-data"
           onSubmit={handleSubmit}
           className="flex flex-col max-w-[1200px] w-full gap-x-20 xl:gap-x-10 max-[870px]:flex-col xl:flex-nowrap"
         >

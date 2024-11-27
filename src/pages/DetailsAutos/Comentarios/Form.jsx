@@ -11,10 +11,10 @@ const Form = ({ id, name, surname }) => {
 
   const submitForm =  async (e) => {
 
-    e.preventDefault();
+  
 
     if (!text.trim()) {
-   
+      e.preventDefault();
       return false;
     }
 

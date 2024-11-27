@@ -26,3 +26,13 @@ export async function patchAuto(auto, id) {
   console.log(auto)
   return call({ uri: `autos/${id}`, method: "PATCH", body: auto });
 }
+
+
+export async function deleteAuto(id) {
+  return call({ uri: `autos/${id}`, method: "DELETE", });
+}
+
+
+export async function comprarAuto(auto_id, auto, user_id) {
+  return call({ uri: `autos/compra/${auto_id}/${user_id}`, method: "PATCH", body: auto });
+}

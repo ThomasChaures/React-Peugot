@@ -14,6 +14,7 @@ const IndexAutos = lazy(() => import("./pages/Autos/Index.jsx"));
 const DetailsCars = lazy(() => import("./pages/DetailsAutos/Details.jsx"));
 import Error404Page from "./pages/Error404Page.jsx";
 import Index from "./pages/Success/Index.jsx";
+const EditSell = lazy(() => import('./pages/SellCar/EditSell.jsx'))
 const IndexAutosAdmin = lazy(() => import("./pages/Admin/IndexAutos.jsx"));
 const IndexUsuarios = lazy(() => import("./pages/Admin/IndexUsers.jsx"));
 const IndexAdmin = lazy(() => import("./pages/Admin/index.jsx"));
@@ -41,9 +42,6 @@ const Pending = lazy(() => import("./pages/Admin/AutosPending/Pending.jsx"));
 const Check = lazy(() => import("./pages/Admin/AutosPending/Check.jsx"));
 const IndexBrands = lazy(() => import("./pages/Brands/index.jsx"));
 const IndexTypes = lazy(() => import("./pages/Types/index.jsx"));
-const CreateUsuario = lazy(() =>
-  import("./pages/Admin/Usuarios/CreateUsuario.jsx")
-);
 const ShowUsuario = lazy(() =>
   import("./pages/Admin/Usuarios/ShowUsuario.jsx")
 );
@@ -109,6 +107,16 @@ const router = createBrowserRouter([
           <ProtectedRoutes>
             <Suspense fallback={<Loader />}>
               <IndexSellCar></IndexSellCar>
+            </Suspense>
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "/vehicle/edit/:auto_id",
+        element: (
+          <ProtectedRoutes>
+            <Suspense fallback={<Loader />}>
+              <EditSell></EditSell>
             </Suspense>
           </ProtectedRoutes>
         ),
@@ -180,46 +188,46 @@ const router = createBrowserRouter([
           </ProtectedRoutesAdmin>
         ),
       },
-      {
-        path: "/admin/users/create",
-        element: (
-          <ProtectedRoutesAdmin>
-            <Suspense fallback={<Loader />}>
-              <IndexUsuarios></IndexUsuarios>
-            </Suspense>
-          </ProtectedRoutesAdmin>
-        ),
-      },
+      // {
+      //   path: "/admin/users/create",
+      //   element: (
+      //     <ProtectedRoutesAdmin>
+      //       <Suspense fallback={<Loader />}>
+      //         <IndexUsuarios></IndexUsuarios>
+      //       </Suspense>
+      //     </ProtectedRoutesAdmin>
+      //   ),
+      // },
       {
         path: "/admin/users/show/:id",
         element: (
           <ProtectedRoutesAdmin>
             <Suspense fallback={<Loader />}>
-              <IndexUsuarios></IndexUsuarios>
+              <ShowUsuario></ShowUsuario>
             </Suspense>
           </ProtectedRoutesAdmin>
         ),
       },
-      {
-        path: "/admin/users/update/:id",
-        element: (
-          <ProtectedRoutesAdmin>
-            <Suspense fallback={<Loader />}>
-              <IndexUsuarios></IndexUsuarios>
-            </Suspense>
-          </ProtectedRoutesAdmin>
-        ),
-      },
-      {
-        path: "/admin/users/delete/:id",
-        element: (
-          <ProtectedRoutesAdmin>
-            <Suspense fallback={<Loader />}>
-              <IndexUsuarios></IndexUsuarios>
-            </Suspense>
-          </ProtectedRoutesAdmin>
-        ),
-      },
+      // {
+      //   path: "/admin/users/update/:id",
+      //   element: (
+      //     <ProtectedRoutesAdmin>
+      //       <Suspense fallback={<Loader />}>
+      //         <UpdateUsuario></UpdateUsuario>
+      //       </Suspense>
+      //     </ProtectedRoutesAdmin>
+      //   ),
+      // },
+      // {
+      //   path: "/admin/users/delete/:id",
+      //   element: (
+      //     <ProtectedRoutesAdmin>
+      //       <Suspense fallback={<Loader />}>
+      //         <IndexUsuarios></IndexUsuarios>
+      //       </Suspense>
+      //     </ProtectedRoutesAdmin>
+      //   ),
+      // },
       {
         path: "/admin/vehicles",
         element: (

@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { getAuto } from "../../../service/autos.service";
 import { useNavigate, Link, useParams } from "react-router-dom";
-import { patchAuto } from "../../../service/autos.service";
+import { deleteAuto } from "../../../service/autos.service";
 
 const DeleteAutos = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const [auto, setAuto] = useState({});
 
-  const handler = async (st) => {
-    const { _id, ...nuevoAuto } = auto;
-
-    nuevoAuto.eliminado = st;
-
+  const handler = async () => {
     try {
-      await patchAuto(nuevoAuto, id).then((data) => console.log(data));
-      navigate('/admin/vehicles')
+      await deleteAuto(id).then((data) => console.log(data));
+      navigate("/admin/vehicles");
     } catch (error) {
       console.error("Error updating status:", error);
     }
@@ -32,11 +28,12 @@ const DeleteAutos = () => {
   return (
     <section className=" px-20 max-w-[600px] mt-[45px]">
       <h2 className="text-3xl text-white mb-4 font-medium">Delete Vehicle</h2>
-      <Link to={'/admin/vehicles'}
-          className="bg-blue-500 px-2 py-2 text-center rounded w-full block"
-        >
-          Back to list
-        </Link>
+      <Link
+        to={"/admin/vehicles"}
+        className="bg-blue-500 px-2 py-2 text-center rounded w-full block"
+      >
+        Back to list
+      </Link>
       <p className="text-white text-xl py-4">
         {auto.model} - {auto.year}
       </p>
@@ -114,7 +111,7 @@ const DeleteAutos = () => {
       <div className="text-white flex  w-full justify-between  gap-x-10 py-4">
         <button
           onClick={() => {
-            handler(true);
+            handler();
           }}
           className="bg-red-700 px-2 py-2 text-center rounded w-full block"
         >

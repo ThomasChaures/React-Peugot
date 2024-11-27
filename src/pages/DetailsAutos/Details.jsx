@@ -5,15 +5,18 @@ import Comentario from "./Comentarios/Comentario";
 import img from "../../assets/img/placeholder.webp";
 import img2 from "../../assets/img/auto2.jpeg";
 import img3 from "../../assets/img/auto3.webp";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getUserData } from "../../service/auth.service";
 import { getAuto } from "../../service/autos.service";
 import { useId } from "../../contexts/session.context";
+
+import { comprarAuto } from "../../service/autos.service";
 const Details = () => {
   let { id } = useParams();
   console.log(id);
 
   const onId = useId();
+  const navigate = useNavigate();
 
   const [auto, setAuto] = useState({});
   const [email, setEmail] = useState("");
@@ -39,6 +42,15 @@ const Details = () => {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   };
 
+  const handleCompra = () => {
+    try {
+      const { _id, ...autoSinId } = auto;
+      comprarAuto(auto._id, autoSinId, onId).then((data) => {
+        navigate("/profile");
+      });
+    } catch (error) {}
+  };
+
   useEffect(() => {
     getUserData(onId).then((data) => {
       setEmail(data.email);
@@ -51,12 +63,12 @@ const Details = () => {
       .then((data) => {
         console.log("auto", data);
         setAuto(data);
-        if(data.img1 || data.img2 || data.img3){
-          console.log(data.img3)
-          setMainImg(`http://localhost:3333/uploads/${data.img1}`)
-          setImg1(`http://localhost:3333/uploads/${data.img1}`)
-          setImg2(`http://localhost:3333/uploads/${data.img2}`)
-          setImg3(`http://localhost:3333/uploads/${data.img3}`)
+        if (data.img1 || data.img2 || data.img3) {
+          console.log(data.img3);
+          setMainImg(`http://localhost:3333/uploads/${data.img1}`);
+          setImg1(`http://localhost:3333/uploads/${data.img1}`);
+          setImg2(`http://localhost:3333/uploads/${data.img2}`);
+          setImg3(`http://localhost:3333/uploads/${data.img3}`);
         }
       })
       .catch((error) => console.error("Error fetching data:", error));
@@ -110,21 +122,36 @@ const Details = () => {
           </div>
           <div className="border-t w-full mt-[20px] pt-3 pb-3">
             <h2 className="text-lg pb-2  poppins-medium">Description</h2>
-            <p className="text-[15px] text-black/70  poppins-medium">
+            <p className="text-[15px] max-w-[600px] break-all text-black/70  poppins-medium">
               {auto.description}
             </p>
           </div>
 
           <div className="mt-3 hidden max-lg:flex w-full flex-col gap-y-2">
-            <button
-              type="submit"
-              className="bg-blue-600 text-md poppins-regular cursor-pointer flex items-center justify-center hover:bg-blue-500 transition-all rounded text-white h-12 w-full"
-            >
-              Start purchase
-            </button>
-            {/* <div className="bg-blue-200/50 border border-blue-600 text-blue-600 text-md poppins-regular cursor-pointer flex items-center justify-center hover:text-white hover:bg-blue-500 transition-all rounded  h-10 w-full">
-              Save as Favorite
-            </div> */}
+            {
+             auto?.vendedor?.email !== user?.email || auto.status === 'for sale' && (
+                <button
+                  onClick={() => {
+                    handleCompra();
+                  }}
+                  type="submit"
+                  className="bg-blue-600 text-md poppins-regular cursor-pointer flex items-center justify-center hover:bg-blue-500 transition-all rounded text-white h-12 w-full"
+                >
+                  Start purchase
+                </button>
+              )
+
+              /* <div className="bg-blue-200/50 border border-blue-600 text-blue-600 text-md poppins-regular cursor-pointer flex items-center justify-center hover:text-white hover:bg-blue-500 transition-all rounded  h-10 w-full">
+            Save as Favorite
+          </div> */
+            }
+            {auto.status === "sold" && (
+              <div
+                className="bg-red-600 text-md poppins-regular flex items-center justify-center transition-all rounded text-white h-12 w-full"
+              >
+                Purchased
+              </div>
+            )}
           </div>
           <div className="mt-4 w-full">
             <h2 className="text-2xl mb-3 poppins-medium">Ask about</h2>
@@ -135,20 +162,24 @@ const Details = () => {
               <h3 className="text-black text-xl poppins-medium">Questions</h3>
 
               <ul className="py-3">
-                {auto?.comments?.map((coment, indice) => (
-                  <li key={indice}>
-                    <Comentario
-                      index={indice}
-                      id={auto._id}
-                      name={user.name}
-                      surname={user.surname}
-                      comentario={coment}
-                      vendedor={null}
-                      email={email}
-                      role={role}
-                    />
-                  </li>
-                )) || <p>No comments available.</p>}
+                {auto?.comments && auto.comments.length > 0 ? (
+                  auto.comments.map((coment, indice) => (
+                    <li key={indice}>
+                      <Comentario
+                        index={indice}
+                        id={auto._id}
+                        name={user.name}
+                        surname={user.surname}
+                        comentario={coment}
+                        vendedor={null}
+                        email={email}
+                        role={role}
+                      />
+                    </li>
+                  ))
+                ) : (
+                  <p>No comments available.</p>
+                )}
               </ul>
             </div>
           </div>
@@ -189,15 +220,29 @@ const Details = () => {
             </ul>
           </div>
           <div className="mt-3 max-lg:hidden flex flex-col gap-y-2">
-            <button
-              type="submit"
-              className="bg-blue-600 text-md poppins-regular cursor-pointer flex items-center justify-center hover:bg-blue-500 transition-all rounded text-white h-12 w-full"
-            >
-              Start purchase
-            </button>
-            {/* <div className="bg-blue-200/50 border border-blue-600 text-blue-600 text-md poppins-regular cursor-pointer flex items-center justify-center hover:text-white hover:bg-blue-500 transition-all rounded  h-10 w-full">
-              Save as Favorite
-            </div> */}
+            {
+              auto?.vendedor?.email !== user?.email  && (
+                <button
+                  onClick={() => {
+                    handleCompra();
+                  }}
+                  className="bg-blue-600 text-md poppins-regular cursor-pointer flex items-center justify-center hover:bg-blue-500 transition-all rounded text-white h-12 w-full"
+                >
+                  Buy
+                </button>
+              )
+              /* <div className="bg-blue-200/50 border border-blue-600 text-blue-600 text-md poppins-regular cursor-pointer flex items-center justify-center hover:text-white hover:bg-blue-500 transition-all rounded  h-10 w-full">
+            Save as Favorite
+          </div> */
+            }
+             
+            {auto.status === "sold" && (
+              <div
+               className="bg-red-600 text-md poppins-regular flex items-center justify-center transition-all rounded text-white h-12 w-full"
+              >
+                Purchased
+              </div>
+            )}
           </div>
         </div>
       </section>

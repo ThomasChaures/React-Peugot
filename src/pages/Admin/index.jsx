@@ -40,6 +40,7 @@ const IndexAdmin = () => {
 
     getAutosAll()
       .then((data) => {
+        console.log(data)
         const autos_forSale = data.filter((auto) => auto.status === "for sale");
         setAutos(autos_forSale.length);
 
@@ -55,17 +56,17 @@ const IndexAdmin = () => {
   }, []);
   return (
     <>
-     <section className="flex items-start max-lg:flex-col"> 
+     <section className="flex items-start flex-col max-lg:flex-col"> 
      <div className=" px-20 w-full mt-[45px]">
         <h1 className="text-3xl font-medium text-white">Dashboard</h1>
 
         <div className="mt-10 flex gap-x-10">
-          <div className="bg-slate-800 max-w-[900px]  w-full  flex flex-col gap-y-7 px-4 py-3 rounded drop-shadow-lg">
+          <div className="bg-slate-800  w-full  flex flex-col gap-y-7 px-4 py-3 rounded drop-shadow-lg">
             <p className="text-white text-xl">Vehicles</p>
 
             <div className="flex justify-between  gap-14">
               <div className="text-white flex items-center gap-x-5 text-5xl font-medium">
-                <span>{autos}</span>
+                <span>{autos || 0}</span>
                 <div className="relative">
                   <p className="text-xl text-green-400 flex items-center gap-x-2 ">
                     <span className="text-4xl">•</span>For Sale
@@ -73,7 +74,7 @@ const IndexAdmin = () => {
                 </div>
               </div>
               <div className="text-white flex items-center gap-x-5 text-5xl font-medium">
-                <span>{autosSold}</span>
+                <span>{autosSold || 0}</span>
                 <div className="relative">
                   <p className="text-xl text-green-300 flex items-center gap-x-2 ">
                     <span className="text-4xl">•</span>Sold
@@ -81,7 +82,7 @@ const IndexAdmin = () => {
                 </div>
               </div>
               <div className="text-white flex items-center gap-x-5 text-5xl font-medium">
-                <span>{autosPending}</span>
+                <span>{autosPending || 0}</span>
                 <div className="relative">
                   <p className="text-xl text-yellow-400 flex items-center gap-x-2 ">
                     <span className="text-4xl">•</span>Pending
@@ -124,13 +125,13 @@ const IndexAdmin = () => {
           </div>
         </div>
 
-        <ChartDashboard/>
+
       </div>
 
       <div className=" w-full px-20 mt-[45px]">
         <h2 className="text-white font-medium text-xl">Last activity</h2>
 
-        <ul className="mt-12 max-w-[1000px] flex flex-col gap-y-3 w-full">
+        <ul className="mt-12 flex flex-col gap-y-3 w-full">
           {lastActivity.map((ua, index) => {
             return (
               <li

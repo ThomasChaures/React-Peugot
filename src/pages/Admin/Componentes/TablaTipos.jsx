@@ -38,7 +38,7 @@ const TablaTipos = () => {
             <table className="w-full text-left">
               <thead className="bg-gray-700">
                 <tr>
-                  {["ID", "Marca", "Actions"].map((header) => (
+                  {["ID", "Type", "Actions"].map((header) => (
                     <th
                       key={header}
                       className="px-6 py-3 text-sm font-medium text-gray-400 uppercase tracking-wider"
@@ -61,7 +61,7 @@ const TablaTipos = () => {
                       {tipo.tipo}
                     </td>
                     <td className="px-6 py-4 flex gap-2 text-black text-sm">
-                      <button className="bg-indigo-500  flex items-center justify-center text-white hover:bg-indigo-300 py-1 rounded px-3 transition duration-300">
+                      {/* <button className="bg-indigo-500  flex items-center justify-center text-white hover:bg-indigo-300 py-1 rounded px-3 transition duration-300">
                         Show
                       </button>
                       <button className="bg-green-500  flex items-center justify-center text-white hover:bg-green-300 py-1 rounded px-3 transition duration-300">
@@ -69,7 +69,7 @@ const TablaTipos = () => {
                       </button>
                       <button className="bg-red-600  flex items-center justify-center text-white hover:bg-red-300 py-1 rounded px-3 transition duration-300">
                         Delete
-                      </button>
+                      </button> */}
                     </td>
                   </tr>
                 ))}

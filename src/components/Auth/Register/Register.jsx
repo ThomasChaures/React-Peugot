@@ -20,15 +20,19 @@ const Register = () => {
     if (!name) fieldErrors.name = "Name is required.";
     if (!surname) fieldErrors.surname = "Surname is required.";
     if (!email.includes("@")) fieldErrors.email = "Enter a valid email.";
-    if (password.length < 6)
-      fieldErrors.password = "Password must be at least 6 characters.";
-    if (password !== passwordConfirm)
+    const passwordRegex = /^(?=.*[A-Z]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      fieldErrors.password = "Password must be at least 8 characters and contain at least one uppercase letter.";
+    }
+    if (password !== passwordConfirm) {
       fieldErrors.passwordVerify = "Passwords do not match.";
-
+    }
+    
     if (Object.keys(fieldErrors).length > 0) {
       setErrors(fieldErrors);
       return;
     }
+    
 
     try {
       const data = await register({
@@ -55,7 +59,7 @@ const Register = () => {
 
   return (
     <section className="h-screen bg-slate-950 flex items-center">
-      <div className="w-[30%] container p-8 rounded-lg shadow-md max-w-[600px]">
+      <div className="w-[30%] max-lg:w-[50%]  container p-8 rounded-lg shadow-md max-w-[600px]">
         <p className="mb-10 text-3xl text-white">MOTORHUB</p>
         <h2 className="text-2xl font-semibold mb-6 text-white">Register</h2>
         <form onSubmit={handleSubmit} className="gap-y-5 flex flex-col">
@@ -194,7 +198,7 @@ const Register = () => {
           )}
         </form>
       </div>
-      <div className="w-[50%] h-full">
+      <div className="w-[50%] max-lg:hidden h-full">
         <img src="./bgauth.jpeg" className="object-cover h-full" alt="" />
       </div>
     </section>

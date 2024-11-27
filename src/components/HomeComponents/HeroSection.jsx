@@ -36,7 +36,7 @@ const HeroSection = () => {
       .catch((error) => console.log(error));
 
     getTipos()
-      .then((data) => setTypes(data))
+      .then((data) => setTypes(data.slice(0,7)))
       .catch((error) => console.log(error));
   }, []);
 

@@ -35,7 +35,7 @@ const Login = () => {
 
   return (
     <section className="h-screen  bg-slate-950 flex items-center ">
-      <div className="w-[30%] container p-8 rounded-lg shadow-md max-w-[600px]">
+      <div className="w-[30%] max-lg:w-[50%]  container p-8 rounded-lg shadow-md max-w-[600px]">
         <p className="mb-10 text-3xl text-white">MOTORHUB</p>
         <h2 className="text-2xl font-semibold mb-6 text-white">Login</h2>
         {error && (
@@ -89,7 +89,7 @@ const Login = () => {
           </Link>
         </p>
       </div>
-      <div className="w-[50%] h-full">
+      <div className="w-[50%] max-lg:hidden h-full">
         <img src="./bgauth.jpeg" className="object-cover h-full" alt="" />
       </div>
     </section>

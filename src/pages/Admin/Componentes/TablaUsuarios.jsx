@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getUsers } from "../../../service/auth.service";
-
+import { Link } from "react-router-dom";
 const TablaUsuarios = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -70,15 +70,12 @@ const TablaUsuarios = () => {
                       {usuario.email}
                     </td>
                     <td className="px-6 py-4 flex flex-col gap-y-2 text-black text-sm ">
-                      <button className="bg-indigo-500  flex items-center justify-center text-white hover:bg-indigo-300 py-1 rounded px-1 transition duration-300">
+                      <Link
+                        to={`/admin/users/show/${usuario._id}`}
+                        className="bg-indigo-500  flex items-center justify-center text-white hover:bg-indigo-300 py-1 rounded px-1 transition duration-300"
+                      >
                         Show
-                      </button>
-                      <button className="bg-green-500  flex items-center justify-center text-white hover:bg-green-300 py-1 rounded px-1 transition duration-300">
-                        Edit
-                      </button>
-                      <button className="bg-red-600  flex items-center justify-center text-white hover:bg-red-300 py-1 rounded px-1 transition duration-300">
-                        Delete
-                      </button>
+                      </Link>
                     </td>
                   </tr>
                 ))}

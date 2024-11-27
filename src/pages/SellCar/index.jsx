@@ -9,9 +9,11 @@ import { postUploads } from "../../service/uploads.service";
 import Error from "../../components/Error/Error.jsx";
 import Loader from "../../components/Loader/Loader.jsx";
 import { getUserData } from "../../service/auth.service.js";
+import { useId } from "../../contexts/session.context";
 
 const index = () => {
   const navigate = useNavigate();
+  const onId = useId();
 
   const [id, setId] = useState(localStorage.getItem("id"));
   const [brands, setBrands] = useState([]);
@@ -55,14 +57,10 @@ const index = () => {
     }));
   };
 
-  // Función para validar campos
   const validateField = (name, value) => {
     let error = "";
 
-    if (
-      (name === "img1" || name === "img2" || name === "img3") &&
-      value === ""
-    ) {
+    if ((name === "img1" || name === "img2" || name === "img3") && (value === '')) {
       error = "You must upload 3 images.";
     } else if (!value) {
       error = `You must provide a valid ${name}.`;
@@ -70,6 +68,10 @@ const index = () => {
       error = "Price must be greater than 0.";
     } else if (name === "horsepower" && value <= 0) {
       error = "Horsepower must be a positive number.";
+    } else if (name === "year" && (value < 1970 || value > 2024)) {
+      error = "Year must be between 1970 and 2024.";
+    } else if ((name === "price" || name === "horsepower") && value < 0) {
+      error = `${name} cannot be negative.`;
     }
 
     setErrors((prevErrors) => ({
@@ -79,7 +81,6 @@ const index = () => {
 
     return error === "";
   };
-
   // Valida todo el formulario
   const validateForm = () => {
     let isValid = true;
@@ -93,7 +94,6 @@ const index = () => {
   };
 
   const handleSubmit = async (e) => {
-   
     e.preventDefault();
 
     if (validateForm()) {
@@ -113,7 +113,6 @@ const index = () => {
         return null;
       });
 
-      // Esperar todas las promesas
       const uploadedFiles = await Promise.all(uploadPromises);
 
       setLoader(true);
@@ -126,39 +125,55 @@ const index = () => {
         }
       });
 
-      // Enviar formulario
+      
       postAuto(formData)
         .then((data) => {
           console.log("Auto created:", data);
-          setLoader(false)
-          navigate('/success')
+          setLoader(false);
+          navigate("/success");
         })
 
-              
-        .catch((err) =>{
-          console.log("Error creating auto:", err)
-          setLoader(false)
-        })
+        .catch((err) => {
+          console.log("Error creating auto:", err);
+          setLoader(false);
+        });
     }
   };
-
   useEffect(() => {
-    Promise.all([getUserData(id), getTipos(), getMarcas()]).then(
-      ([userData, tipos, marcas]) => {
+    const fetchUserData = async () => {
+      try {
+        const [userData, tipos, marcas] = await Promise.all([
+          getUserData(onId), 
+          getTipos(), 
+          getMarcas()
+        ]);
+        
         setUser(userData);
         setTypes(tipos);
         setBrands(marcas);
+        
+       
+        setFormData(prev => ({
+          ...prev,
+          vendedor: {
+            name: userData.name,
+            surname: userData.surname,
+            email: userData.email,
+          }
+        }));
+        
+        console.log('User data:', userData);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
       }
-    );
-  }, [id]);
+    };
   
+    fetchUserData();
+  }, [onId]);
 
   return (
     <section className="mt-40 container max-[870px]:px-10 max-[1270px]:px-10 px-20 max-w-[1360px] max-[1270px]:max-w-[1000px] mx-auto">
-
-      {
-        (loader) && <Loader />
-      }
+      {loader && <Loader />}
 
       <div>
         <div className="bg-blue-200/50 border border-blue-600 text-blue-600 text-sm poppins-regular cursor-pointer flex items-center justify-center hover:text-white hover:bg-blue-500 transition-all rounded h-8 w-[200px] mb-10">

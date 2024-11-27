@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import placeholder from "../../../assets/img/placeholder.webp";
+import placeholder from "../../../../assets/img/placeholder.webp";
 import { Link } from "react-router-dom";
 
 const Card = ({ auto }) => {
@@ -18,7 +18,7 @@ const Card = ({ auto }) => {
   };
 
   return (
-    <div className="flex relative w-full flex-col h-[240px] max-w-[1000px] bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all">
+    <div className="flex relative flex-col max-w-[1000px] bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all">
       {auto.price <= 24000 && (
         <div className="absolute left-4 top-4 text-sm bg-green-500 text-white py-1 px-3 rounded-full">
           <span>Great Price</span>
@@ -43,7 +43,7 @@ const Card = ({ auto }) => {
       <div className="flex">
         <div className="w-[300px] h-88 flex-shrink-0">
           <img
-            src={`http://localhost:3333/uploads/${auto.img1}`|| placeholder}
+            src={auto.imga || placeholder}
             alt={auto.model || "Auto"}
             className="w-full h-full object-cover"
           />
@@ -78,15 +78,13 @@ const Card = ({ auto }) => {
             <p className="text-2xl font-medium text-gray-900">
               ${formattedNumber(auto.price)}
             </p>
-            {
-              auto.status !== 'sold' && <Link 
+            <Link 
               className="text-blue-600 hover:text-blue-700 transition-colors flex items-center gap-2" 
-              to={"/vehicle/details/" + auto.auto_id}
+              to={"/admin/vehicles/show/" + auto.auto_id}
             >
               View details 
               <i className="text-sm fa-solid fa-location-arrow"></i>
             </Link>
-            }
           </div>
         </div>
       </div>
